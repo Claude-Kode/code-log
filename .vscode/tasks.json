@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Template Watcher",
+            "type": "shell",
+            "command": "node",
+            "args": ["${workspaceFolder}/scripts/template-watcher.js"],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": ".",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Template watcher is running",
+                    "endsPattern": "^Press Ctrl\\+C to stop"
+                }
+            },
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated"
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"cph-ng.companion.customPathScript": "C:/Code/AlgorithmSolves/scripts/cph-path-script.js",
+		"cph-ng.problem.templateFile": "C:/Code/AlgorithmSolves/templates/TEMPLATE-2.cpp",
+		"cph-ng.problem.problemFilePath": "${workspace}/.cph-ng/${relativeDirname}/${basename}.bin",
+		"cph-ng.languages.cppCompiler": "C:/msys64/mingw64/bin/g++.exe",
+		"cph-ng.languages.cppCompilerArgs": "-std=gnu++23 -O2 -Wall -Wextra -Wshadow -DCPH -DLOCAL -IC:/Code/AlgorithmSolves/files/debuger",
+		"cph-ng.languages.pythonCompiler": "C:/pypy3.11-v7.3.23-win64/pypy3.exe",
+		"cph-ng.languages.pythonInterpreter": "C:/pypy3.11-v7.3.23-win64/pypy3.exe"
+	},
+
+}
+
+
+// .code-workspace 文件中的 settings(最高优先级)
+//     ↓
+// .vscode/settings.json(工作区设置)
+//     ↓
+// 用户设置(最低优先级)
