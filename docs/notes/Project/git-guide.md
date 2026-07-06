@@ -1,3 +1,15 @@
+git init 在当前目录下初始化 git 仓库(初始化 .git 文件)
+git clone + <url> 在当前目录下下载指定的 git repo 内容
+git add . (. 代表当前目录文件) add 代表把当前的更改存入暂存区
+git commit -m "说明" 把暂存区的内容 添加说明后 更改到本地 git 仓库
+git remote add origin <url> 把当前的仓库链接到远端的仓库
+git branch -M main 把当前的项目主分支重命名为 main
+git push -u origin main 把 origin
+origin 是远端仓库的别名, origin main 是远端仓库的 main 分支
+-u = --set-upstream 设置上游(默认同步对象)
+设置过 -u 以后直接 git push 就可以了
+
+
 # Git 完全学习指南
 > 这是一个为自己的 `code-log` 整理的 Git 全流程学习笔记。
 > 理解 Git 的核心在于理解它的 **区域模型**。
@@ -193,4 +205,3 @@ git commit -m "first commit"  # 第一次提交（自动创建分支）
 git branch -M main       # 重命名为 main
 git remote add origin <url>    # 关联 GitHub
 git push -u origin main  # 首次推送
-
