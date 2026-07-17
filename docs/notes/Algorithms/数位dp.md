@@ -7,17 +7,17 @@
 **例题**：统计 \([0, K]\) 中，各位数字之和等于 \(S\) 的数的个数。
 
 ```cpp
-using ll = long long;
-ll dp[20][2][200]; // dp[pos][tight][sum]
+using int = long long;
+int dp[20][2][200]; // dp[pos][tight][sum]
 string s;          // 把 K 转成字符串，方便取位
 
-ll dfs(int pos, bool tight, int sum) {
+int dfs(int pos, bool tight, int sum) {
     if (pos == s.size()) return sum == 0;
     if (dp[pos][tight][sum] != -1) return dp[pos][tight][sum];
 
-    ll res = 0;
+    int res = 0;
     int limit = tight ? s[pos] - '0' : 9;
-    for (int d = 0; d <= limit; ++d) {
+    for (int d = 0; d <= limit; d ++) {
         if (sum - d < 0) continue;
         res += dfs(pos + 1, tight && (d == limit), sum - d);
     }
@@ -35,7 +35,7 @@ ll dfs(int pos, bool tight, int sum) {
 ## 2. 二进制版：统计 \([0, k]\) 中不含连续 1 的数
 
 ```cpp
-ll dfs(int pos, bool tight, bool prev_one) {
+int dfs(int pos, bool tight, bool prev_one) {
     if (pos == -1) return 1; // 成功构造一个数
     if (!tight && dp[pos][prev_one] != -1) return dp[pos][prev_one];
 
@@ -399,3 +399,27 @@ if not tight: memo[key] = res
 - 二进制 DP 与十进制完全同理，只是 base 变为 2。
 
 如果你对其中某一题的状态设计没思路，或者想看特定题目代码，直接告诉我题号，我给你拆解状态转移。加油，数位 DP 练熟了就是模板填空题！
+
+数位 DP 模板
+
+输入: n, 限制条件 f(d, state)
+```
+s = str(n), m = len(s)
+定义 dfs(pos, tight, state):
+    if pos == m:           ← 填完了
+        return state 是否合法
+
+    if memo 有记录:        ← 记忆化 (仅 tight=False 时)
+        return memo
+
+    limit = s[pos] if tight else 9
+    res = 0
+
+    for d in 0..limit:
+        if 不满足限制:     ← 剪枝
+            continue
+        res += dfs(pos+1, tight and d==limit, 新状态(state, d))
+
+    memo 记录 res
+    return res
+```

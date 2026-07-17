@@ -5,8 +5,8 @@ const rootDir = path.dirname(__dirname);
 const cppTemplate = fs.readFileSync(path.join(rootDir, 'templates', 'TEMPLATE-2.cpp'), 'utf-8');
 const pyTemplate = fs.readFileSync(path.join(rootDir, 'templates', 'TEMPLATE-PY.py'), 'utf-8');
 
-const cppDir = path.join(rootDir, 'src', 'cpp');
-const pyDir = path.join(rootDir, 'src', 'py');
+const cppDir = path.join(rootDir, 'src', 'cpp', 'problems');
+const pyDir = path.join(rootDir, 'src', 'py', 'problems');
 
 function applyTemplate(filePath) {
     const ext = path.extname(filePath);

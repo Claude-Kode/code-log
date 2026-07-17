@@ -1,0 +1,51 @@
+// @Author : GoryK
+// #pragma GCC optimize("Ofast,fast-math")
+// #pragma GCC target("avx,avx2")
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int int_fast64_t
+#define endl "\n"
+#define umap unordered_map
+#define uset unordered_set
+
+
+const int mod = 1e9 + 7; 
+const int N = 2e5 + 10;
+
+void solve() { 
+  int n; cin >> n;
+  vector<int> vec(n + 1); 
+  map<int, int> mp; int mx = 0;
+  for(int i = 1; i <= n; i ++) {
+    cin >> vec[i]; mp[vec[i]] ++;
+    mx = max(mx, mp[vec[i]]);
+  }
+
+  if (mx > n - mx) cout << (mx - n + mx) << "\n";
+  else cout << (n & 1) << endl; 
+}
+/*
+
+*/
+
+signed main() {
+  
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+  
+  #ifdef GK
+    freopen("INPUT.txt", "r", stdin);
+    freopen("OUTPUT.txt", "w", stdout);
+  #endif 
+
+  // cout << fixed << setprecision(6);
+
+  int tt , CNT = 0; cin >> tt;
+  while(tt -- && ++CNT) 
+    // cout << "TEST CASE : " << CNT << endl,
+    solve();
+  
+  return 0;
+}

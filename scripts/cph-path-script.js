@@ -10,7 +10,7 @@ async function process() {
     const ext = isCpp ? '.cpp' : '.py';
 
     const root = workspaceFolders[0].path;
-    const targetDir = path.join(root, 'src', isCpp ? 'cpp' : 'py');
+    const targetDir = path.join(root, 'src', isCpp ? 'cpp' : 'py', 'problems');
 
     const results = [];
     for (const problem of problems) {

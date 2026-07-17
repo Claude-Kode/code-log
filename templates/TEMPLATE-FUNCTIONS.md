@@ -210,8 +210,8 @@ inline void _dbug(const char* name, const string& x) {
 ```cpp
 #ifdef __GNUC__
   // #pragma GCC optimize("fast-math") 
-  #pragma GCC optimize("Ofast, unroll-loops = full")
-  #pragma GCCtarget("avx, avx2")
+  #pragma GCC optimize("Ofast, unroll-loops")
+  #pragma GCCtarget("avx2")
 #endif
 ```
 ## bit-cal
@@ -666,20 +666,20 @@ int inv (int x , int mod) {
 }
 ```
 
-## 素数筛
+## 素数筛(线性筛)
 ```cpp
-const int N = 1e7 + 1;
+const int N = 1e7;
 vector<int> pr;
-vector<int> vis(N , 0);
+vector<int> vis(N + 1, 0);
 
 void prime(int n) {
   vis[1] = 1;
-  for ( int i = 2 ; i <= n ; i ++ ) {
-    if( !vis[i] ) pr.push_back( i ) ;  
-    for ( const auto &j : pr ) {
-      if (i * j > n) break ; 
-      vis[i * j] = 1 ; 
-      if (i % j == 0) break ; 
+  for (int i = 2; i <= n; i ++) {
+    if(!vis[i]) pr.push_back(i) ;  
+    for (const auto& j : pr) {
+      if (i * j > n) break; 
+      vis[i * j] = 1; 
+      if (i % j == 0) break; 
     }
   }
 }
@@ -687,13 +687,17 @@ void prime(int n) {
 
 ## 素数因子
 ```cpp
-map<int, int> prime_factor(int a, vector<int>& pr) {
-  map<int, int> factors;
-  for (const auto &x : pr) if(a % x == 0) {
-    while (a % x == 0) factors[x] ++, a /= x;
-    if ( a < x ) { if (a > 1) factors[a]++; break; }
-  } 
-  return factors;
+map<int, int> cal_fac(int n) {
+  map<int, int> res;
+  for (int& p : pr) {
+    if (p * p > n) break;
+    while (n % p == 0) {
+      res[p]++; 
+      n /= p;
+    }
+  }
+  if (n > 1) res[n] ++;
+  return res;
 }
 ```
 ## 组合数预处理
@@ -903,6 +907,162 @@ int MOD(vector<int> vec) {
 ```
 
 # GRAPH
+
+## tarjan
+```cpp
+// @Author : GoryK
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int int64_t
+#define ckmn(x, y) do { auto _v = (y); if (_v < (x)) (x) = _v; } while(0)
+#define ckmx(x, y) do { auto _v = (y); if (_v > (x)) (x) = _v; } while(0)
+
+#ifdef LOCAL
+  #include "__DEBUG_TOOL.h"
+#else
+  #define dbug(...) 
+#endif
+
+// REGISTER_REFLECT()
+
+void solve() {
+  int n, m;
+  cin >> n >> m;
+  vector<int> a(n + 1);
+  for (int i = 1; i <= n; i++) {
+    cin >> a[i];
+  }
+
+  vector<vector<int>> g(n + 1);
+  for (int i = 1; i <= m; i++) {
+    int u, v;
+    cin >> u >> v;
+    g[u].push_back(v);
+  }
+
+  int timer = 0, scc_cnt = 0;
+  vector<int> low(n + 1), dfn(n + 1), instk(n + 1), scc(n + 1), stk;
+  // low, dfn 是 点编号 -> 时间戳
+  // 剩下的都是点编号的意义
+  auto tarjan = [&](this auto&& tarjan, int u) -> void {
+    dfn[u] = low[u] = ++timer;
+    stk.push_back(u);
+    instk[u] = true;
+
+    for (int& v : g[u]) {
+      if (dfn[v] == 0) {
+        tarjan(v);
+        ckmn(low[u], low[v]);
+      } else if (instk[v]) {
+        ckmn(low[u], dfn[v]);
+      }
+    } 
+
+    if (low[u] == dfn[u] and ++scc_cnt) {
+      // 这里 如果栈里面只有 u 自己一个, 直接
+      int v = 0;
+      do {
+        v = stk.back();
+        stk.pop_back();
+        scc[v] = scc_cnt;
+        instk[v] = false;
+      } while (v != u);
+    }
+  };
+
+  for (int i = 1; i <= n; i ++) {
+    if (!dfn[i]) {
+      tarjan(i);
+    }
+  }
+
+  vector<int> ans(scc_cnt + 1, 0);
+  for (int i = 1; i <= n; i ++) {
+    ans[scc[i]] += a[i];
+  }
+
+  cout << ranges::max(ans);
+
+// 1. 建 DAG
+// 你已经知道每个点属于哪个 SCC（scc[i]）。现在把原图的边"重定向"到 SCC 之间：
+// // 读图时顺便把边存起来（你现在的代码只是 g[u].push_back(v)，边信息读后就丢了）
+// vector<pair<int,int>> edges;    // 加这行
+// for (int i = 1; i <= m; i++) {
+//     int u, v;
+//     cin >> u >> v;
+//     g[u].push_back(v);
+//     edges.push_back({u, v});    // 加这行
+// }
+
+// // tarjan 之后，建 DAG
+// vector<vector<int>> dag(scc_cnt + 1);
+// for (auto [u, v] : edges) {
+//     int x = scc[u], y = scc[v];
+//     if (x != y)
+//         dag[x].push_back(y);
+// }
+
+// 去重（同一个 SCC 之间可能有多条原边，不处理会多跑 DP）
+// // ... 见下
+// 直观理解：原图的一条边 u→v，如果 u 和 v 缩进不同 SCC，那就变成 SCC(u) → SCC(v)。如果缩进同一个 SCC，这条边就是 SCC 内部的环边，DAG 上不出现在。
+// 2. DAG 上 DP
+// 这一步的关键是用拓扑序做 DP。Tarjan 的 scc_cnt 编号有一个天然性质：编号大的 SCC 在拓扑序上排在前面。
+// 回忆代码：根 u 发现 low[u]==dfn[u] 时，把栈顶到 u 的所有点弹出来，标记为新的 scc_cnt。因为是 DFS 回溯时从叶子往根弹，所以叶子 SCC 编号小，靠近源的 SCC 编号大。
+// 这意味着：从 scc_cnt 往 1 遍历，就是 DAG 的拓扑序。
+// vector<int> dp(scc_cnt + 1, 0);
+
+// // sum[x] = SCC x 内所有点的权值和（你代码里的 ans[x]）
+// // 按逆拓扑序（scc_cnt → 1）DP
+// for (int x = scc_cnt; x >= 1; x--) {
+//     dp[x] += sum[x];                          // 自己点权和
+//     for (int y : dag[x])
+//         ckmx(dp[y], dp[x]);                   // 推给邻居
+// }
+// 或者等价地，正拓扑序拉式 DP：
+// vector<int> dp = sum;    // 初始化为各自的 sum
+// for (int x = scc_cnt; x >= 1; x--) {
+//     for (int y : dag[x])
+//         ckmx(dp[y], dp[x] + sum[y]);
+// }
+
+// cout << ranges::max(dp);
+// 完整改动点（你现有代码上改 3 处）
+// ① 读图时存边：edges.push_back({u, v});
+// ② tarjan 之后建 dag + 去重：
+// vector<vector<int>> dag(scc_cnt + 1);
+// for (auto [u, v] : edges) {
+//     int x = scc[u], y = scc[v];
+//     if (x != y) dag[x].push_back(y);
+// }
+// // 去重：每个点的邻接表 sort + unique
+// for (int i = 1; i <= scc_cnt; i++) {
+//     sort(dag[i].begin(), dag[i].end());
+//     dag[i].erase(unique(dag[i].begin(), dag[i].end()), dag[i].end());
+// }
+// ③ DP 替掉 cout << ranges::max(ans)：
+// vector<int> dp = ans;   // ans 是你原来算的每个 SCC 的 sum
+// for (int x = scc_cnt; x >= 1; x--)
+//     for (int y : dag[x])
+//         ckmx(dp[y], dp[x] + ans[y]);
+
+// cout << ranges::max(dp);
+// }
+
+int32_t main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+
+  int tt = 1, _ = 0;
+  // std::cin >> tt;
+  while (tt-- and ++_)
+    // std::cout << "TEST CASE : " << _ << endl,
+    solve();
+
+  return 0;
+}
+```
 
 ## prim
 ```cpp
@@ -1347,11 +1507,40 @@ for (int i = head[u]; i; i = edges[i][2]) {
   // 处理边 u->v
 }
 ```
+## zkw 线段树
+```cpp
+class SGT {
+  std::vector<int> seg;
+  int off = 0;
+  void pull(int i) { seg[i] = std::max(seg[i << 1], seg[i << 1 | 1]); }
+
+ public:
+  SGT() = delete;
+  SGT(int n) {
+    off = std::bit_ceil(unsigned(n + 2));
+    seg.assign(off << 1, 0);
+  }
+  void upd(int i, int v) {
+    if (v <= seg[i += off]) return;
+    seg[i] = v;
+    while (i >>= 1) pull(i);
+  }
+  int ask(int l, int r) {
+    if (l > r) return 0;
+    int res = 0;
+    for (l += off - 1, r += off + 1; l ^ r ^ 1; l >>= 1, r >>= 1) {
+      if (~l & 1) res = std::max(res, seg[l ^ 1]);
+      if (r & 1) res = std::max(res, seg[r ^ 1]);
+    }
+    return res;
+  }
+};
+```
 
 ## 线段树(lazy)
 ```cpp
 template <typename Info, typename Tag>
-class SegmentTree {
+class SGT {
  public:
   int n;
   vector<Info> seg;
@@ -1408,14 +1597,14 @@ class SegmentTree {
   }
 
  public:
-  SegmentTree() : n(0) {}
+  SGT() : n(0) {}
 
-  explicit SegmentTree(int _n) : n(_n) {
+  explicit SGT(int _n) : n(_n) {
     seg.assign(4 * n + 1, Info{});
     tag.assign(4 * n + 1, Tag{});
   }
 
-  explicit SegmentTree(int _n, int _v) : n(_n) {
+  explicit SGT(int _n, int _v) : n(_n) {
     seg.assign(4 * n + 1, Info(_v));
     tag.assign(4 * n + 1, Tag(_v));
   }
@@ -1476,16 +1665,16 @@ void Info::apply(int l, int r, const Tag& tg)  {
 ## 线段树(指针版) 
 ```cpp
 
-struct SegmentTree {
-  SegmentTree *ls, *rs;
+struct SGT {
+  SGT *ls, *rs;
   int sum, mx, l, r, mid;
-  SegmentTree (int L, int R, const vector<int>& vec) {
+  SGT (int L, int R, const vector<int>& vec) {
     l = L, r = R, mid = (l + r) / 2;
     if (l == r) {
       mx = sum = vec[l];
     } else {
-      ls = new SegmentTree(l, mid, vec);
-      rs = new SegmentTree(mid + 1, r, vec);
+      ls = new SGT(l, mid, vec);
+      rs = new SGT(mid + 1, r, vec);
       pull();
     }
   }
@@ -2091,12 +2280,33 @@ void solve() {
 
 ## st表
 ```cpp
+
+struct ST {
+  int n;
+  vector<vector<int>> f;
+
+  ST(const vector<int>& a) {
+    n = (int)a.size();
+    int K = __lg(n) + 1;
+    f.assign(K, vector<int>(n));
+    f[0] = a;
+    for (int k = 1; k < K; k++) 
+      for (int i = 0; i + (1 << k) <= n; i++)
+        f[k][i] = max(f[k - 1][i], f[k - 1][i + (1 << (k - 1))]);
+  }
+
+  int ask(int l, int r) {
+    int k = __lg(r - l + 1);
+    return max(f[k][l], f[k][r - (1 << k) + 1]);
+  }
+};
+
 class ST {
-private :
+ private:
   vector<vector<int>> st;
   function<int(int, int)> f;
 
-public :
+ public:
   ST(const vector<int>& vec, auto func) : f(func) {
     int n = vec.size() - 1, exp = __lg(n);
     st.assign(exp + 2, vector<int>(n + 1));
@@ -2108,7 +2318,7 @@ public :
     }
   } 
 
-  int query(int l, int r) {
+  int ask(int l, int r) {
     if (l > r) {cerr << "wrong query" << endl; return; }
     int j = __lg(r - l + 1);
     return f(st[j][l], st[j][r - (1 << j) + 1]);
@@ -2219,6 +2429,41 @@ class Trie {
     cnt_node = 0;
   }
 };
+```
+## bitset
+```cpp
+bitset<8> b1;                 // 全 0: 00000000
+bitset<8> b2(13);             // 二进制: 00001101
+bitset<8> b3("101100");       // 补前导0: 00101100
+bitset<8> b4(string("110"));  // 00110010（注意字符串高位在右）
+
+// ==================== 基础访问与修改 ====================
+b1.set();          // 全置 1
+b1.reset();        // 全置 0
+b1.flip();         // 全部取反
+b1.set(2);         // 第2位设为1（从0开始）
+b1.reset(2);       // 第2位设为0
+b1.flip(2);        // 翻转第2位
+bool x = b1[2];    // 读取第2位
+b1[2] = 1;         // 赋值第2位
+
+// ==================== 常用查询 ====================
+int c1 = b1.count();   // 1的个数（popcount）
+int c2 = b1.size();    // 总位数
+bool e = b1.any();     // 是否有1
+bool n = b1.none();    // 是否全0
+bool a = b1.all();     // 是否全1
+cout << b1.test(3);    // 第3位是否为1
+
+// ==================== 位运算 ====================
+auto b5 = b1 & b2;     // 按位与
+auto b6 = b1 | b2;     // 按位或
+auto b7 = b1 ^ b2;     // 按位异或
+auto b8 = ~b1;         // 按位取反
+b1 <<= 2;              // 左移2位
+b1 >>= 2;              // 右移2位
+auto b9 = b1 << 2;
+auto b10 = b1 >> 2;
 ```
 
 # strings

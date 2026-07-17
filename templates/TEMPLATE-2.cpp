@@ -13,10 +13,6 @@ using namespace std;
 // REGISTER_REFLECT()
 
 void solve() {
-  int n; 
-  cin >> n; 
-  string s;
-  cin >> s;
   
 } 
 
@@ -26,7 +22,7 @@ int32_t main() {
   std::cout.tie(nullptr);
   
   int tt = 1, _ = 0;
-  // std::cin >> tt;
+  std::cin >> tt;
   while (tt-- and ++_)
     // std::cout << "TEST CASE : " << _ << endl,
     solve();
