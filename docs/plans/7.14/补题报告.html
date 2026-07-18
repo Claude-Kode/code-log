@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7.14 补题报告</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+<style>
+:root {
+  --bg: #1a1b26;
+  --card: #24253a;
+  --border: #313252;
+  --text: #c9d1f0;
+  --sub: #7b83a8;
+  --accent: #7aa2f7;
+  --green: #9ece6a;
+  --orange: #ff9e64;
+  --red: #f7768e;
+  --code-bg: #1a1b26;
+  --tag-bg: #2f3158;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+.container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+header {
+  text-align: center;
+  padding: 60px 0 40px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+header .meta {
+  color: var(--sub);
+  font-size: 0.95em;
+}
+
+header .tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.tag {
+  background: var(--tag-bg);
+  color: var(--accent);
+  padding: 3px 12px;
+  border-radius: 99px;
+  font-size: 0.82em;
+  font-weight: 500;
+}
+
+.tag.green { color: var(--green); }
+.tag.orange { color: var(--orange); }
+.tag.red { color: var(--red); }
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 48px;
+  font-size: 0.92em;
+}
+
+.summary-table th {
+  text-align: left;
+  color: var(--sub);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.78em;
+  letter-spacing: 0.06em;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--border);
+}
+
+.summary-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.summary-table tr:hover td { background: rgba(122, 162, 247, 0.04); }
+
+.summary-table .prob-id {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1.05em;
+}
+
+.summary-table .prob-src {
+  color: var(--sub);
+  font-size: 0.85em;
+}
+
+.summary-table .algo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.algo-tag {
+  background: var(--tag-bg);
+  color: var(--text);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.78em;
+  white-space: nowrap;
+}
+
+.section-title {
+  font-size: 1.55em;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+}
+
+.problem-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-header .prob-title {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.card-header .prob-meta {
+  color: var(--sub);
+  font-size: 0.85em;
+  margin-top: 4px;
+}
+
+.card-body {
+  padding: 28px;
+}
+
+.analysis-block {
+  margin-bottom: 24px;
+}
+
+.analysis-block h3 {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.analysis-block p, .analysis-block ul {
+  color: var(--text);
+  font-size: 0.94em;
+  line-height: 1.8;
+}
+
+.analysis-block ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.analysis-block ul li::before {
+  content: "> ";
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.complexity {
+  display: inline-flex;
+  gap: 16px;
+  font-size: 0.88em;
+  color: var(--sub);
+  font-family: "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
+}
+
+.complexity span { color: var(--orange); font-weight: 600; }
+
+pre {
+  margin: 0;
+  border-radius: 8px;
+  font-size: 0.82em;
+  line-height: 1.55;
+  overflow-x: auto;
+  max-height: 480px;
+}
+
+pre code {
+  font-family: "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
+}
+
+.hljs {
+  background: var(--code-bg) !important;
+  padding: 20px 24px !important;
+}
+
+footer {
+  text-align: center;
+  color: var(--sub);
+  font-size: 0.85em;
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+}
+
+footer .name {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .container { padding: 20px 14px 60px; }
+  header h1 { font-size: 1.6em; }
+  .summary-table { font-size: 0.78em; }
+  .summary-table th, .summary-table td { padding: 8px 10px; }
+  .card-body { padding: 18px; }
+  pre { font-size: 0.72em; max-height: 360px; }
+}
+
+@media print {
+  body { background: #fff; color: #222; }
+  :root { --bg:#fff; --card:#fff; --border:#ccc; --text:#222; --sub:#555; --accent:#2563eb; --green:#16a34a; --orange:#ea580c; --red:#dc2626; --code-bg:#f5f5f5; --tag-bg:#e5e7eb; }
+  .problem-card { break-inside: avoid; }
+  pre { max-height: none; white-space: pre-wrap; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+  <h1>7.14 补题报告</h1>
+  <div class="meta">2026-07-14 &nbsp;|&nbsp; 共 4 题</div>
+  <div class="tags">
+    <span class="tag">2026 ICPC Wuhan Invitational</span>
+    <span class="tag green">树</span>
+    <span class="tag green">交互</span>
+    <span class="tag orange">数据结构</span>
+    <span class="tag orange">线段树</span>
+    <span class="tag red">随机化</span>
+    <span class="tag">哈希</span>
+  </div>
+</header>
+
+<section>
+  <h2 class="section-title">总览</h2>
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>题目</th>
+        <th>来源</th>
+        <th>核心算法</th>
+        <th>复杂度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="prob-id">I</span></td>
+        <td><span class="prob-src">2026 ICPC 武汉邀请赛</span></td>
+        <td>
+          <div class="algo-tags">
+            <span class="algo-tag">BFS</span>
+            <span class="algo-tag">树构造</span>
+            <span class="algo-tag">度数序列</span>
+          </div>
+        </td>
+        <td>O(n)</td>
+      </tr>
+      <tr>
+        <td><span class="prob-id">K</span></td>
+        <td><span class="prob-src">排列恢复</span></td>
+        <td>
+          <div class="algo-tags">
+            <span class="algo-tag">随机化分治</span>
+            <span class="algo-tag">交互</span>
+          </div>
+        </td>
+        <td>O(n log n) 查询</td>
+      </tr>
+      <tr>
+        <td><span class="prob-id">H</span></td>
+        <td><span class="prob-src">2026 ICPC 武汉邀请赛</span></td>
+        <td>
+          <div class="algo-tags">
+            <span class="algo-tag">map</span>
+            <span class="algo-tag">区间分裂</span>
+            <span class="algo-tag">最大值维护</span>
+          </div>
+        </td>
+        <td>O(q log q)</td>
+      </tr>
+      <tr>
+        <td><span class="prob-id">J</span></td>
+        <td><span class="prob-src">105423</span></td>
+        <td>
+          <div class="algo-tags">
+            <span class="algo-tag">线段树</span>
+            <span class="algo-tag">随机哈希</span>
+            <span class="algo-tag">双指针</span>
+          </div>
+        </td>
+        <td>O(n log n)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2 class="section-title">题目详解</h2>
+
+  <!-- Problem I -->
+  <div class="problem-card">
+    <div class="card-header">
+      <div class="prob-title">I — 树（武汉邀请赛）</div>
+      <div class="prob-meta">2026 ICPC Wuhan Invitational &nbsp;|&nbsp; C++ &nbsp;|&nbsp; 93 行</div>
+    </div>
+    <div class="card-body">
+      <div class="analysis-block">
+        <h3>解题思路</h3>
+        <p>该题包含两个独立的子问题，通过输入的首行数据判断走哪个分支：</p>
+        <ul>
+          <li><b>子问题 1</b>：给定一棵树，目标是选出 n-3 个节点（即删除 3 个度数最小的节点）。做法：找到任意一个叶子节点（度数为 1），从其唯一邻接点出发 BFS 遍历全树，输出 BFS 序的前 n-3 个节点。正确性基于叶子节点的邻接点总能作为 BFS 起点覆盖大部分节点。</li>
+          <li><b>子问题 2</b>：给定节点数 n 和一个序列 a[2..m+1]，要求根据度数约束重构一棵树。a[i] 编码了某种类似深度/度数前缀的信息：节点 2 的度数 = a[2]-1，后续节点 i 的度数 = a[i]-a[i-1]+1。构造时使用贪心：维护一个当前度数未满的节点指针 cur，每次给新节点 i 连一条边到 cur 上，直到 cur 的度数耗尽再移动 cur。</li>
+        </ul>
+      </div>
+      <div class="analysis-block">
+        <h3>复杂度分析</h3>
+        <div class="complexity">
+          时间: <span>O(n)</span> &nbsp; 空间: <span>O(n)</span>
+        </div>
+      </div>
+      <div class="analysis-block">
+        <h3>完整代码</h3>
+        <pre><code class="language-cpp" id="code-i"></code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem K -->
+  <div class="problem-card">
+    <div class="card-header">
+      <div class="prob-title">K — Permutation</div>
+      <div class="prob-meta">交互题 &nbsp;|&nbsp; C++ &nbsp;|&nbsp; 107 行</div>
+    </div>
+    <div class="card-body">
+      <div class="analysis-block">
+        <h3>解题思路</h3>
+        <p>这是一道交互题，需要通过与评测机对话恢复长度为 n 的隐藏排列。</p>
+        <ul>
+          <li><b>核心交互函数 ask(mid, x, y)</b>：构造一个序列——前 mid 个位置全填 x，剩余位置全填 y，将序列发送给评测机。返回值表示 x 和 y 在此排列中的相对顺序关系（1 表示 x 在前面 / 不变，2 表示需要交换位置，0 表示无关或相等）。</li>
+          <li><b>随机化分治策略</b>：将当前区间 [l, r] 的候选值集合随机打乱，然后两两比较相邻的值。根据 ask 的返回值将每个值分配到左半区 [l, mid] 或右半区 [mid+1, r] 中，最后递归处理两个子区间。若有多余的值（配对剩余），根据左右半区已分配的数量决定其归属。</li>
+          <li><b>关键技巧</b>：使用 shuffle 随机打乱 + 逐对比较以避免最坏情况，同时保证分治规则的一致性。最终通过 1 次最终输出报告完整排列。</li>
+        </ul>
+      </div>
+      <div class="analysis-block">
+        <h3>复杂度分析</h3>
+        <div class="complexity">
+          查询次数: <span>O(n log n) 期望</span> &nbsp; 时间: <span>O(n log n)</span> &nbsp; 空间: <span>O(n)</span>
+        </div>
+      </div>
+      <div class="analysis-block">
+        <h3>完整代码</h3>
+        <pre><code class="language-cpp" id="code-k"></code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem H -->
+  <div class="problem-card">
+    <div class="card-header">
+      <div class="prob-title">H — 矩形切割（武汉邀请赛）</div>
+      <div class="prob-meta">2026 ICPC Wuhan Invitational &nbsp;|&nbsp; C++ &nbsp;|&nbsp; 79 行</div>
+    </div>
+    <div class="card-body">
+      <div class="analysis-block">
+        <h3>解题思路</h3>
+        <p>给定 n × m 的矩形，进行 q 次切割操作。每次操作指定方向（横向 op=1 或纵向 op=2）和切割位置 k，切割后输出当前所有子矩形中的最大面积。</p>
+        <ul>
+          <li><b>数据结构设计</b>：维护四个 map——<code>len</code> / <code>wid</code> 记录每个切割线为起点所能得到的区间长度（key = 起始坐标, value = 长度），<code>mx_len</code> / <code>mx_wid</code> 按降序维护每种长度出现的次数（key = 长度, value = 计数）。</li>
+          <li><b>切割操作</b>：在位置 k 处切割时，用 <code>upper_bound</code> 找到 k 所在的区间 [x1, x2]，将其分裂为 [x1, k] 和 [k, x2]。更新 len/wid 的 value，并维护 mx_len/mx_wid 中的计数——旧长度减 1（消 0 删除），两个新长度各加 1。</li>
+          <li><b>查询答案</b>：每次操作后，最大面积 = 当前最大横向长度 × 最大纵向长度，即 <code>mx_len.begin()-&gt;first * mx_wid.begin()-&gt;first</code>。</li>
+        </ul>
+      </div>
+      <div class="analysis-block">
+        <h3>复杂度分析</h3>
+        <div class="complexity">
+          时间: <span>O(q log q)</span> &nbsp; 空间: <span>O(q)</span>
+        </div>
+      </div>
+      <div class="analysis-block">
+        <h3>完整代码</h3>
+        <pre><code class="language-cpp" id="code-h"></code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem J -->
+  <div class="problem-card">
+    <div class="card-header">
+      <div class="prob-title">J — 排列子数组相似性 (105423)</div>
+      <div class="prob-meta">105423 &nbsp;|&nbsp; C++ &nbsp;|&nbsp; 88 行</div>
+    </div>
+    <div class="card-body">
+      <div class="analysis-block">
+        <h3>解题思路</h3>
+        <p>给定两个长度为 n 的排列 A 和 B，求有多少个区间 [l, r] 满足 A[l..r] 和 B[l..r] 包含完全相同的元素集合（顺序可以不同）。</p>
+        <ul>
+          <li><b>随机哈希映射</b>：为每个数值 x (1..n) 分配一个随机的 64 位哈希值 val[x]，那么两个集合相等当且仅当它们的哈希值集合一致。</li>
+          <li><b>线段树维护哈希</b>：建立两棵线段树，分别对应排列 A 和排列 B。线段树按值的位置下标存储该值的哈希值。每个节点的哈希值 = 左子树哈希 + 右子树哈希 × base^(左子树元素个数)。这样两棵树根节点的哈希值相等就代表两个排列中相同位置集合的元素完全一致。</li>
+          <li><b>双指针滑动窗口</b>：固定右端点 r，不断向右扩展。当 [l, r] 内的两棵树哈希值不相等时，收缩左边界 l++（将 l 位置的值从线段树中移除）。当哈希值相等时，对答案贡献 r - l + 1。</li>
+        </ul>
+      </div>
+      <div class="analysis-block">
+        <h3>复杂度分析</h3>
+        <div class="complexity">
+          时间: <span>O(n log n)</span> &nbsp; 空间: <span>O(n)</span>
+        </div>
+      </div>
+      <div class="analysis-block">
+        <h3>完整代码</h3>
+        <pre><code class="language-cpp" id="code-j"></code></pre>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <span class="name">GoryK</span> &nbsp;·&nbsp; 2026-07-14 &nbsp;·&nbsp; 补题报告
+</footer>
+
+</div>
+
+<script type="text/plain" id="src-i">#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+#define ll long long
+
+void solve1() {
+  int n; cin >> n;
+  vector<vector<int>> g(n + 1);
+  vector<int> d(n + 1);
+  int r = 0;
+  for (int i = 1; i < n; i ++) {
+    int u, v;
+    cin >> u >> v;
+    g[u].push_back(v);
+    g[v].push_back(u);
+    d[u] ++; d[v] ++;
+  }
+
+  for (int i = 1; i <= n; i ++) {
+    if (d[i] == 1) {
+      r = i;
+      break;
+    }
+  }
+
+  vector<int> vis(n + 1);
+  queue<int> q;
+  q.push(g[r].back());
+  vis[r] = 1;
+
+  vector<int> ans;
+  while (!q.empty()) {
+    int u = q.front(); q.pop();
+    vis[u] = 1;
+    ans.push_back(u);
+    for (auto &v : g[u]) {
+      if (vis[v]) continue;
+      q.push(v);
+    }
+  }
+
+  cout << n - 3 <<"\n";
+  for (int i = 0; i < n - 3; i ++) {
+    cout << ans[i] << " \n"[i == n - 4];
+  }
+}
+
+void solve2() {
+  int n, m; cin >> n >> m;
+  vector<int> a(n + 1, 0), d(n + 1, 1);
+  for (int i = 2; i <= m + 1; i ++) {
+    cin >> a[i];
+  }
+
+  d[2] = a[2] - 1;
+
+  vector<array<int, 2>> edges;
+  edges.push_back({1, 2});
+
+  int cur = 2;
+  for (int i = 3; i <= n; i ++) {
+    d[i] = a[i] - a[i - 1] + 1;
+    while (!d[cur]) cur ++;
+    d[cur] --;
+    edges.push_back({cur, i});
+  }
+
+  for (auto &[u, v] : edges) {
+    cout << u << ' ' << v << "\n";
+  }
+}
+
+int32_t main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  int tt = 1;
+  cin >> tt;
+  if (tt == 1) {
+    solve1();
+  } else {
+    solve2();
+  }
+
+  return 0;
+}</script>
+
+<script type="text/plain" id="src-k">#include <bits/stdc++.h>
+using namespace std;
+
+#define int int64_t
+
+#ifdef LOCAL
+  #include "__DEBUG_TOOL.h"
+#else
+  #define dbug(...)
+#endif
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+int rn(int l, int r) {
+  return uniform_int_distribution<int>(l, r)(rng);
+}
+
+void solve() {
+  int n; cin >> n;
+  if (n == 1) {
+    cout << 1 << ' ' << 1 << "\n";
+    return;
+  }
+
+  vector<int> ans(n + 1);
+
+  auto ask = [&](int mid, int x, int y) -> int {
+    cout << 0 << " ";
+    for (int i = 1; i <= mid; i ++) cout << x << ' ';
+    for (int i = mid + 1; i <= n; i ++) cout << y << ' ';
+    cout.flush();
+    int res; cin >> res;
+    return res;
+  };
+
+  auto dfs = [&](auto && sef, int l, int r, vector<int>& v) -> void {
+    if (l == r) {
+      assert(v.size());
+      ans[l] = v[0];
+      return;
+    }
+
+    vector<int> v1, v2;
+    int i = 0, mid = (l + r) / 2, lst = 0;
+    shuffle(v.begin(), v.end(), rng);
+    while (i < (int)v.size() - 1) {
+      int res = ask(mid, v[i], v[i + 1]);
+      if (res == 1) {
+        i ++;
+      } else {
+        if (res == 2) {
+          for (int j = lst; j <= i; j ++) {
+            v1.push_back(v[j]);
+          }
+          v2.push_back(v[i + 1]);
+        } else {
+          for (int j = lst; j <= i; j ++) {
+            v2.push_back(v[j]);
+          }
+          v1.push_back(v[i + 1]);
+        }
+        i += 2; lst = i;
+      }
+    }
+
+    if (lst != (int)v.size()) {
+      if ((int)v1.size() == mid - l + 1) {
+        for (int j = lst; j < (int)v.size(); j ++) {
+          v2.push_back(v[j]);
+        }
+      } else {
+        for (int j = lst; j < (int)v.size(); j ++) {
+          v1.push_back(v[j]);
+        }
+      }
+    }
+
+    sef(sef, l, mid, v1);
+    sef(sef, mid + 1, r, v2);
+  };
+
+  vector<int> vec(n);
+  iota(vec.begin(), vec.end(), 1LL);
+  dfs(dfs, 1, n, vec);
+
+  cout << 1 << " ";
+  for (int i = 1; i <= n; i ++) {
+    cout << ans[i] << " \n"[i == n];
+  }
+}
+
+int32_t main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+
+  int tt = 1;
+  solve();
+
+  return 0;
+}</script>
+
+<script type="text/plain" id="src-h">#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+#define ll long long
+
+void solve() {
+  int n, m, q;
+  cin >> n >> m >> q;
+
+  map<int, int> len, wid;
+  len[0] = n; wid[0] = m;
+  len[n] = 0; wid[m] = 0;
+
+  map<int, int, greater<int>> mx_len, mx_wid;
+  mx_len[n] ++;
+  mx_wid[m] ++;
+
+  for (int i = 1; i <= q; i ++) {
+    int op, k;
+    cin >> op >> k;
+    if (op == 1) {
+      auto it = len.upper_bound(k);
+      int x2 = it -> first;
+      int x1 = (--it) -> first;
+      len[x1] = k - x1;
+      len[k] = x2 - k;
+      mx_len[k - x1] ++;
+      mx_len[x2 - k] ++;
+      mx_len[x2 - x1] --;
+      if (mx_len[x2 - x1] == 0) {
+        mx_len.erase(x2 - x1);
+      }
+    } else {
+      auto it = wid.upper_bound(k);
+      int y2 = it -> first;
+      int y1 = (--it) -> first;
+      wid[y1] = k - y1;
+      wid[k] = y2 - k;
+      mx_wid[k - y1] ++;
+      mx_wid[y2 - k] ++;
+      mx_wid[y2 - y1] --;
+      if (mx_wid[y2 - y1] == 0) {
+        mx_wid.erase(y2 - y1);
+      }
+    }
+
+    cout << mx_len.begin() -> first * mx_wid.begin() -> first << "\n";
+  }
+}
+
+int32_t main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  int tt = 1;
+  while (tt --) {
+    solve();
+  }
+
+  return 0;
+}</script>
+
+<script type="text/plain" id="src-j">#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+#ifdef LOCAL
+#include "__DEBUG_TOOL.h"
+#else
+#define dbug(...)
+#endif
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+const int N = 1e5 + 3, base = 131;
+vector<int> p(N), val(N);
+
+class SegTree {
+ public:
+  vector<int> tree, cnt;
+  void setting(int n) {
+    tree.assign(4 * n + 1, 0);
+    cnt.assign(4 * n + 1, 0);
+  }
+  void up(int i) {
+    cnt[i] = cnt[i << 1] + cnt[i << 1 | 1];
+    tree[i] = tree[i << 1] + tree[i << 1 | 1] * p[cnt[i << 1]];
+  }
+  void add(int pos, int jobv, int i, int l, int r) {
+    if (l == r) {
+      cnt[i] = (jobv != 0);
+      tree[i] = jobv;
+      return;
+    }
+    int mid = (l + r) >> 1;
+    if (pos <= mid)
+      add(pos, jobv, i << 1, l, mid);
+    else
+      add(pos, jobv, i << 1 | 1, mid + 1, r);
+    up(i);
+  }
+};
+
+void solve() {
+  int n;
+  cin >> n;
+  p[0] = 1;
+  for (int i = 1; i <= n; i++) {
+    p[i] = p[i - 1] * base;
+    val[i] = rng();
+  }
+  vector<int> idxa(n + 1), idxb(n + 1);
+  for (int i = 1; i <= n; i++) {
+    int x;
+    cin >> x;
+    idxa[x] = i;
+  }
+  for (int i = 1; i <= n; i++) {
+    int x;
+    cin >> x;
+    idxb[x] = i;
+  }
+  SegTree tree1, tree2;
+  tree1.setting(n);
+  tree2.setting(n);
+  int l = 1, ans = 0;
+  for (int r = 1; r <= n; r++) {
+    tree1.add(idxa[r], val[r], 1, 1, n);
+    tree2.add(idxb[r], val[r], 1, 1, n);
+    while (tree1.tree[1] != tree2.tree[1]) {
+      tree1.add(idxa[l], 0, 1, 1, n);
+      tree2.add(idxb[l], 0, 1, 1, n);
+      l++;
+    }
+    ans += (r - l + 1);
+  }
+  cout << ans << "\n";
+}
+
+signed main() {
+  std::ios::sync_with_stdio(false);
+  cin.tie(0);
+  int t = 1;
+  while (t--) {
+    solve();
+  }
+  return 0;
+}</script>
+
+<script>
+(function() {
+  var map = {
+    'code-i': 'src-i',
+    'code-k': 'src-k',
+    'code-h': 'src-h',
+    'code-j': 'src-j'
+  };
+  Object.keys(map).forEach(function(cid) {
+    var src = document.getElementById(map[cid]);
+    if (src) {
+      var code = document.getElementById(cid);
+      code.textContent = src.textContent.trim();
+    }
+  });
+  hljs.highlightAll();
+})();
+</script>
+
+</body>
+</html>

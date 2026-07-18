@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7.15 补题报告 - 25李增睿</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+<style>
+:root {
+  --bg: #21252b;
+  --card: #282c34;
+  --panel: #2c313a;
+  --border: #3e4451;
+  --text: #abb2bf;
+  --bright: #d7dae0;
+  --sub: #5c6370;
+  --blue: #61afef;
+  --green: #98c379;
+  --red: #e06c75;
+  --orange: #d19a66;
+  --yellow: #e5c07b;
+  --purple: #c678dd;
+  --cyan: #56b6c2;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.75;
+  min-height: 100vh;
+}
+.container { max-width: 980px; margin: 0 auto; padding: 48px 24px 96px; }
+
+header.hero {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0 0 36px;
+  margin-bottom: 36px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+}
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot.r { background: #ff5f57; }
+.dot.y { background: #febc2e; }
+.dot.g { background: #28c840; }
+.titlebar .tb-title {
+  flex: 1;
+  text-align: center;
+  color: var(--sub);
+  font-size: 0.82em;
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  margin-right: 52px;
+}
+header.hero .inner { text-align: center; padding: 36px 24px 0; }
+header.hero h1 {
+  font-size: 2.1em;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--blue), var(--green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+header.hero .meta { color: var(--sub); font-size: 0.95em; }
+header.hero .meta b { color: var(--text); font-weight: 600; }
+header.hero .tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+
+.tag {
+  padding: 2px 12px;
+  border-radius: 99px;
+  font-size: 0.8em;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.18);
+}
+.tag.blue   { color: var(--blue); }
+.tag.green  { color: var(--green); }
+.tag.red    { color: var(--red); }
+.tag.orange { color: var(--orange); }
+.tag.purple { color: var(--purple); }
+.tag.cyan   { color: var(--cyan); }
+.tag.yellow { color: var(--yellow); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 32px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+}
+.card > .body { padding: 24px 28px 28px; }
+
+table.summary { width: 100%; border-collapse: collapse; font-size: 0.92em; }
+table.summary th {
+  text-align: left;
+  color: var(--sub);
+  font-weight: 600;
+  font-size: 0.78em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+}
+table.summary td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+table.summary tr:last-child td { border-bottom: none; }
+table.summary tr:hover td { background: rgba(97, 175, 239, 0.05); }
+table.summary a { color: var(--blue); text-decoration: none; font-weight: 700; }
+table.summary a:hover { text-decoration: underline; }
+table.summary .pname { color: var(--bright); font-weight: 600; }
+table.summary .tags-cell { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.problem { scroll-margin-top: 24px; }
+.problem .p-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-bottom: 14px;
+}
+.problem .p-head h2 { font-size: 1.35em; color: var(--bright); }
+.problem .p-head h2 .pid { color: var(--blue); margin-right: 8px; }
+.problem .p-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.problem .comp {
+  color: var(--sub);
+  font-size: 0.85em;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  margin-bottom: 14px;
+}
+.problem .comp b { color: var(--yellow); font-weight: 600; }
+.idea p { margin-bottom: 10px; }
+.idea ul { margin: 4px 0 12px 22px; }
+.idea li { margin-bottom: 6px; }
+.idea b { color: var(--bright); }
+.idea code {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 0.86em;
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  color: var(--cyan);
+}
+
+details.codebox { margin-top: 18px; }
+details.codebox summary {
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+details.codebox summary::-webkit-details-marker { display: none; }
+.macwin {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #282c34;
+}
+.macwin .titlebar { border-radius: 0; }
+.macwin .tb-title { margin-right: 52px; }
+.macwin .hint { color: var(--sub); font-size: 0.78em; }
+details.codebox[open] .macwin .hint .closed-txt { display: none; }
+details.codebox:not([open]) .macwin .hint .open-txt { display: none; }
+.macwin pre { margin: 0; }
+.macwin pre code.hljs {
+  background: #282c34;
+  padding: 18px 20px;
+  font-size: 0.84em;
+  line-height: 1.6;
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+}
+
+.note {
+  background: rgba(229, 192, 123, 0.07);
+  border-left: 3px solid var(--yellow);
+  border-radius: 0 10px 10px 0;
+  padding: 12px 16px;
+  margin: 14px 0;
+  font-size: 0.92em;
+}
+.note b { color: var(--yellow); }
+
+footer {
+  text-align: center;
+  color: var(--sub);
+  font-size: 0.85em;
+  margin-top: 48px;
+}
+.backtop {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  font-size: 1.1em;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+.backtop:hover { background: var(--border); }
+
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: var(--bg); }
+  .container { max-width: 100%; padding: 16px 8px; }
+  .backtop, .macwin .hint { display: none !important; }
+  header.hero, .card { box-shadow: none; page-break-inside: auto; }
+  .card.problem { break-before: page; }
+  .macwin pre code.hljs { white-space: pre-wrap; word-break: break-all; font-size: 0.76em; }
+  details.codebox { margin-top: 14px; }
+  details.codebox summary .macwin { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+}
+</style>
+</head>
+<body id="top">
+<div class="container">
+
+<header class="hero">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">7.15-补题报告-25李增睿.html</span></div>
+  <div class="inner">
+    <h1>7.15 补题报告</h1>
+    <div class="meta">2026 山东省大学生程序设计竞赛 (SDCPC) &nbsp;&middot;&nbsp; <b>25 李增睿</b> &nbsp;&middot;&nbsp; 补题 10 / 13 (除 B, F, M)</div>
+    <div class="tags">
+      <span class="tag blue">拓扑排序 + bitset</span>
+      <span class="tag purple">数位 DP</span>
+      <span class="tag cyan">线段树 DP</span>
+      <span class="tag green">贪心 / 构造</span>
+      <span class="tag orange">Kruskal</span>
+      <span class="tag red">数论</span>
+    </div>
+  </div>
+</header>
+
+<div class="card">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">summary -- 题目一览</span></div>
+  <div class="body">
+  <table class="summary">
+    <tr><th>题号</th><th>题目</th><th>算法</th><th>难度</th></tr>
+    <tr><td><a href="#prob-A">A</a></td><td class="pname">华容道</td><td><div class="tags-cell"><span class="tag blue">区间连边</span><span class="tag purple">拓扑排序</span><span class="tag cyan">bitset 传递闭包</span></div></td><td><span class="tag red">难</span></td></tr>
+    <tr><td><a href="#prob-C">C</a></td><td class="pname">会议日程</td><td><div class="tags-cell"><span class="tag blue">整数三分</span><span class="tag green">凸函数</span></div></td><td><span class="tag orange">中</span></td></tr>
+    <tr><td><a href="#prob-D">D</a></td><td class="pname">最大数码 2</td><td><div class="tags-cell"><span class="tag blue">数位 DP</span><span class="tag purple">双上界</span><span class="tag red">进位处理</span><span class="tag cyan">二维差分</span></div></td><td><span class="tag red">难</span></td></tr>
+    <tr><td><a href="#prob-E">E</a></td><td class="pname">简单的构造题</td><td><div class="tags-cell"><span class="tag green">构造</span><span class="tag blue">棋盘染色</span></div></td><td><span class="tag orange">中</span></td></tr>
+    <tr><td><a href="#prob-G">G</a></td><td class="pname">吸血鬼爬行者</td><td><div class="tags-cell"><span class="tag green">贪心</span><span class="tag blue">排序</span></div></td><td><span class="tag orange">中</span></td></tr>
+    <tr><td><a href="#prob-H">H</a></td><td class="pname">拼图</td><td><div class="tags-cell"><span class="tag blue">DFS 爆搜</span><span class="tag red">剪枝</span><span class="tag cyan">计数</span></div></td><td><span class="tag orange">中</span></td></tr>
+    <tr><td><a href="#prob-I">I</a></td><td class="pname">版本号</td><td><div class="tags-cell"><span class="tag green">签到</span></div></td><td><span class="tag green">签到</span></td></tr>
+    <tr><td><a href="#prob-J">J</a></td><td class="pname">插松枝</td><td><div class="tags-cell"><span class="tag blue">DP</span><span class="tag purple">线段树</span><span class="tag cyan">值域分层</span><span class="tag red">边界规约</span></div></td><td><span class="tag red">最难</span></td></tr>
+    <tr><td><a href="#prob-K">K</a></td><td class="pname">最小生成树</td><td><div class="tags-cell"><span class="tag blue">Kruskal</span><span class="tag green">贪心</span><span class="tag orange">分类讨论</span></div></td><td><span class="tag orange">中</span></td></tr>
+    <tr><td><a href="#prob-L">L</a></td><td class="pname">分数迭代</td><td><div class="tags-cell"><span class="tag purple">数论</span><span class="tag blue">gcd</span><span class="tag cyan">断点预处理</span></div></td><td><span class="tag red">难</span></td></tr>
+  </table>
+  </div>
+</div>
+
+<div class="card problem" id="prob-A">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">Problem A. 华容道</span></div>
+  <div class="body">
+    <div class="p-head">
+      <h2><span class="pid">A.</span>华容道</h2>
+      <div class="p-tags"><span class="tag blue">区间连边</span><span class="tag purple">拓扑排序</span><span class="tag cyan">bitset 传递闭包</span><span class="tag red">难</span></div>
+    </div>
+    <div class="comp"><b>复杂度</b> O(4NM + (NM)&sup2;/w), NM &le; 5&times;10&#8308;</div>
+    <div class="idea">
+<p>每个格子有一个滑动方向, 求每个格子出发能经过多少格子, 走不出循环的输出 -1. 本质是有向图可达性计数.</p>
+<p>关键是<b>建边不能暴力</b>: 直接对滑动路径上每个格子连边是 O((NM)&sup2;) 的. 观察到一行内两个相邻的 <code>L</code> 格子之间的区段是"共享"的 -- 对每个方向按行/列扫一遍, 每个 <code>L</code> 格向 [上一个 L 的位置, 自身) 的区段连边, 四个方向同理, 总边数摊到 O(4NM).</p>
+<p>建好图后求拓扑序: 在环上的格子(进不了拓扑序)答案为 -1; 其余格子按拓扑序用 <code>bitset&lt;50001&gt;</code> 逆序合并可达集合, <code>dp[u].count()</code> 即为答案. 这是数据范围 N &le; 5&times;10&#8308; 时传递闭包计数的标准套路.</p>
+</div>
+    <details class="codebox">
+      <summary>
+        <div class="macwin">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">A.cpp</span><span class="hint"><span class="closed-txt">点击展开代码 &#9656;</span><span class="open-txt">点击收起代码 &#9662;</span></span></div>
+        </div>
+      </summary>
+      <div class="macwin" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-12px;">
+        <pre><code class="language-cpp">// @Author : GoryK
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define int int64_t
+
+using i32 = int32_t;
+using i64 = int64_t;
+
+#ifdef LOCAL
+  #include &quot;__DEBUG_TOOL.h&quot;
+#else
+  #define dbug(...)
+#endif
+
+void solve() {
+  int n, m;
+  cin &gt;&gt; n &gt;&gt; m;
+  int N = n * m;
+
+  auto dc = [&amp;](char ch) -&gt; int {
+    if (ch == &#x27;U&#x27;) return 0;
+    if (ch == &#x27;L&#x27;) return 1;
+    if (ch == &#x27;D&#x27;) return 2;
+    if (ch == &#x27;R&#x27;) return 3;
+    return -1;
+  };
+
+  auto id = [&amp;](int x, int y) -&gt; int {
+    return (x - 1) * m + y;
+  };
+
+  vector&lt;vector&lt;int&gt;&gt; g(n + 1, vector&lt;int&gt;(m + 1));
+  for (int i = 1; i &lt;= n; i ++)
+    for (int j = 1; j &lt;= m; j ++) {
+      char ch; cin &gt;&gt; ch;
+      g[i][j] = dc(ch);
+    }
+
+  vector&lt;vector&lt;int&gt;&gt; G(N + 1);
+  for (int i = 1; i &lt;= n; i ++) {
+    int lst = -1;
+    for (int j = 1; j &lt;= m; j ++) {
+      if (g[i][j] == 1) {
+        for (int k = (lst == -1 ? 1 : lst); k &lt; j; k ++)
+          G[id(i, j)].push_back(id(i, k));
+        lst = j;
+      }
+    }
+  }
+
+  for (int i = 1; i &lt;= n; i ++) {
+    int lst = -1;
+    for (int j = m; j &gt;= 1; j --) {
+      if (g[i][j] == 3) {
+        for (int k = (lst == -1 ? m : lst); k &gt; j; k --)
+          G[id(i, j)].push_back(id(i, k));
+        lst = j;
+      }
+    }
+  }
+
+  for (int j = 1; j &lt;= m; j ++) {
+    int lst = -1;
+    for (int i = 1; i &lt;= n; i ++) {
+      if (g[i][j] == 0) {
+        for (int k = (lst == -1 ? 1 : lst); k &lt; i; k ++)
+          G[id(i, j)].push_back(id(k, j));
+        lst = i;
+      }
+    }
+  }
+
+  for (int j = 1; j &lt;= m; j ++) {
+    int lst = -1;
+    for (int i = n; i &gt;= 1; i --) {
+      if (g[i][j] == 2) {
+        for (int k = (lst == -1 ? n : lst); k &gt; i; k --)
+          G[id(i, j)].push_back(id(k, j));
+        lst = i;
+      }
+    }
+  }
+
+  vector&lt;vector&lt;int&gt;&gt; rev(N + 1);
+  for (int u = 1; u &lt;= N; u ++) {
+    for (int v : G[u]) {
+      rev[v].push_back(u);
+    }
+  }
+
+  vector&lt;int&gt; indg(N + 1);
+  for (int i = 1; i &lt;= N; i ++) {
+    indg[i] = G[i].size();
+  }
+
+  queue&lt;int&gt; q; 
+  for (int i = 1; i &lt;= N; i ++) {
+    if (!indg[i]) {
+      q.push(i);
+    }
+  }
+
+  vector&lt;int&gt; topo, vis(N + 1);
+  while (!q.empty()) {
+    int v = q.front(); q.pop();
+    topo.push_back(v);
+    vis[v] = 1;
+    for (int u : rev[v]) {
+      if (!--indg[u]) {
+        q.push(u);
+      }
+    }
+  }
+
+  // Bitset DP（逆序）
+  vector&lt;bitset&lt;50001&gt;&gt; dp(N + 1);
+  for (int u : topo) {
+    dp[u].set(u);
+    for (int v : G[u]) {
+      dp[u].set(v);
+      dp[u] |= dp[v];
+    }
+  }
+
+  for (int i = 1; i &lt;= n; i ++) {
+    for (int j = 1; j &lt;= m; j ++) {
+      int idx = id(i, j);
+      if (vis[idx])
+        cout &lt;&lt; dp[idx].count() &lt;&lt; &quot; &quot;;
+      else
+        cout &lt;&lt; -1 &lt;&lt; &quot; &quot;;
+      if (j == m) cout &lt;&lt; &quot;\n&quot;;
+    }
+  }
+}
+
+int32_t main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+  
+  int tt = 1, _ = 0;
+  std::cin &gt;&gt; tt;
+  while (tt-- and ++_)
+    // std::cout &lt;&lt; &quot;TEST CASE : &quot; &lt;&lt; _ &lt;&lt; endl,
+    solve();
+
+  return 0;
+}</code></pre>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="card problem" id="prob-C">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">Problem C. 会议日程</span></div>
+  <div class="body">
+    <div class="p-head">
+      <h2><span class="pid">C.</span>会议日程</h2>
+      <div class="p-tags"><span class="tag blue">整数三分</span><span class="tag green">凸函数</span><span class="tag orange">中</span></div>
+    </div>
+    <div class="comp"><b>复杂度</b> O(n log V)</div>
+    <div class="idea">
+<p>把代价写成 f(x) = &Sigma; min((l&#7522;-x)&sup2;, (r&#7522;-x)&sup2;) (x 落在区间内贡献 0). 每一项都是关于 x 的凸函数, 凸函数之和仍是凸(单谷)函数, 直接整数三分.</p>
+<p>补题时顺手总结了三分的本质: 每次取 m1, m2 两个点, 求最小值就舍弃函数值更大的一侧. 之所以两个点就够, 是因为单谷函数只有一个"折返点", 只需要判断当前在折返点左侧还是右侧 -- 两个点的相对大小恰好给出这个信息.</p>
+</div>
+    <details class="codebox">
+      <summary>
+        <div class="macwin">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">C.cpp</span><span class="hint"><span class="closed-txt">点击展开代码 &#9656;</span><span class="open-txt">点击收起代码 &#9662;</span></span></div>
+        </div>
+      </summary>
+      <div class="macwin" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-12px;">
+        <pre><code class="language-cpp">// @Author : GoryK
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define int int64_t
+
+#ifdef LOCAL
+  #include &quot;__DEBUG_TOOL.h&quot;
+#else 
+  #define dbug(...)
+#endif
+
+// REGISTER_REFLECT()
+
+void solve() {
+  int n;
+  cin &gt;&gt; n;
+  using pii = pair&lt;int, int&gt;;
+  vector&lt;pii&gt; a(n + 1); int lim = 0;
+  for (int i = 1; i &lt;= n; i ++) {
+    auto &amp;[l, r] = a[i];
+    cin &gt;&gt; l &gt;&gt; r;
+    lim = max({lim, l, r});
+  }
+
+  // 三分就是每次挑两个端点进行分析
+  // 如果要求最大的, 就每次舍弃更小的那一侧
+  // 求最小就舍弃另外一侧
+  // 原因不是点数不够, 而是问题本身变难了。单峰函数优美的地方在于: 
+  // 函数只有一个&quot;折返点&quot;, 所以你只需要判断当前处于折返点的左侧还是右侧 —— 两个点的相对大小就够了。
+  auto f = [&amp;](int x) -&gt; int {
+    int res = 0;
+    for (int i = 1; i &lt;= n; i ++) {
+      auto [l, r] = a[i];
+      if (l &lt;= x and x &lt;= r)
+        continue;
+      res += min(abs(l - x) * abs(l - x), abs(r - x) * abs(r - x));
+    }
+
+    return res;
+  };
+
+  int l = 0, r = lim, ans = l;
+  while (l &lt;= r) {
+    int m1 = l + (r - l) / 3;
+    int m2 = r - (r - l) / 3;
+    if (f(m1) &gt; f(m2)) {
+      l = m1 + 1, ans = m2;
+    } else {
+      r = m2 - 1, ans = m1;
+    }
+  }
+
+  cout &lt;&lt; f(ans) &lt;&lt; &quot;\n&quot;;
+} 
+
+int32_t main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+  
+  int tt = 1, _ = 0;
+  std::cin &gt;&gt; tt;
+  while (tt-- and ++_)
+    // std::cout &lt;&lt; &quot;TEST CASE : &quot; &lt;&lt; _ &lt;&lt; endl,
+    solve();
+
+  return 0;
+}</code></pre>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="card problem" id="prob-D">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">Problem D. 最大数码 2</span></div>
+  <div class="body">
+    <div class="p-head">
+      <h2><span class="pid">D.</span>最大数码 2</h2>
+      <div class="p-tags"><span class="tag blue">数位 DP</span><span class="tag purple">双上界</span><span class="tag red">进位处理</span><span class="tag cyan">二维差分</span><span class="tag red">难</span></div>
+    </div>
+    <div class="comp"><b>复杂度</b> O(9 &times; len &times; 4 &times; 12 &times; 2 &times; 200)</div>
+    <div class="idea">
+<p>求 &Sigma; maxdigit(a+b), a &isin; [la, ra], b &isin; [lb, rb]. 枚举最大数码 mx_d &isin; [1, 9], 统计 a+b 的最大数码恰为 mx_d 的对数(所有位 &le; mx_d 且至少一位 = mx_d), 答案累加 mx_d &times; 对数. 二维区间用 4 项前缀容斥拆开.</p>
+<p>难点在于 a 和 b 要<b>同时</b>数位 DP, 且和的数位受进位影响. 处理方式: 从高位往低位 DFS, 状态里带上"本位需要向高位进的位 carry"; 转移时枚举本位数字 da, db 和<b>低位送上来的进位 cin</b>, 校验 (da+db+cin &ge; 10) == carry, 再把 cin 作为子问题的 carry 传下去 -- 相当于把"进位链"拆成逐位的自洽约束.</p>
+<p>状态: dp[位][a 顶界][b 顶界][mx_d 出现次数][carry], 每个 mx_d 重置记忆化.</p>
+</div>
+    <details class="codebox">
+      <summary>
+        <div class="macwin">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">D.cpp</span><span class="hint"><span class="closed-txt">点击展开代码 &#9656;</span><span class="open-txt">点击收起代码 &#9662;</span></span></div>
+        </div>
+      </summary>
+      <div class="macwin" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-12px;">
+        <pre><code class="language-cpp">// @Author : GoryK
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define int int64_t
+#define fir first
+#define sec second
+
+#define ckmn(a, b) ((b) &lt; (a) ? (a) = (b), 1 : 0)
+#define ckmx(a, b) ((b) &gt; (a) ? (a) = (b), 1 : 0)
+
+#ifdef LOCAL
+  #include &quot;__DEBUG_TOOL.h&quot;
+#else 
+  #define dbug(...)
+#endif
+
+// REGISTER_REFLECT()
+
+void solve() {
+  int la, ra, lb, rb;
+  cin &gt;&gt; la &gt;&gt; ra &gt;&gt; lb &gt;&gt; rb;
+
+  using pbb = pair&lt;bool, bool&gt;;
+  static int dp[12][2][2][12][2]; 
+  // tight, cnt_mx
+  int mx_d = 1; string A, B; 
+  // carry 是这一位是否要求产生进位
+  auto dfs = [&amp;](this auto&amp;&amp; dfs, int P, pbb T, int cnt_mx, int carry) -&gt; int {
+    int len = A.size();
+    if (P == len) {
+      return (carry == 0 &amp;&amp; cnt_mx &gt; 0);
+    }
+
+    auto [Ta, Tb] = T;
+    if (dp[P][Ta][Tb][cnt_mx][carry] != -1) {
+      return dp[P][Ta][Tb][cnt_mx][carry];
+    }
+
+    int res = 0;
+    int lim_a = T.fir ? A[P] - &#x27;0&#x27; : 9LL;
+    int lim_b = T.sec ? B[P] - &#x27;0&#x27; : 9LL;
+
+    for (int da = 0; da &lt;= lim_a; da ++) {
+      for (int db = 0; db &lt;= lim_b; db ++) {
+        // 枚举低位(P + 1)向本位的进位, 这个没有枚举
+        for (int cin = 0; cin &lt;= 1; cin ++) {   
+          int dsum = da + db + cin, dcur = dsum % 10;
+          if (dcur &gt; mx_d) continue;
+          // 本位向高位的进位必须与父要求一致
+          if ((dsum &gt;= 10) != carry) continue;   
+          res +=
+          dfs(
+            P + 1,
+            pbb(T.fir &amp; (da == (A[P] - &#x27;0&#x27;)), T.sec &amp; (db == (B[P] - &#x27;0&#x27;))),
+            cnt_mx + (dcur == mx_d),
+            cin // 子调用的 carry = 本位收到的低位进位
+          );
+        }
+      }
+    }
+
+    return dp[P][Ta][Tb][cnt_mx][carry] = res;
+  };
+
+  auto chg = [&amp;](int a, int b) -&gt; void {
+    A = to_string(a), B = to_string(b);
+    int lim = max(A.size(), B.size()) + 1;
+    while (A.size() &lt; lim) A = &#x27;0&#x27; + A;
+    while (B.size() &lt; lim) B = &#x27;0&#x27; + B;
+    memset(dp, -1, sizeof dp); 
+  };
+
+  int ans = 0;
+  while (mx_d &lt;= 9) {
+    chg(ra, rb);
+    ans += mx_d * dfs(0, pbb(true, true), 0, false);
+    
+    chg(la - 1, rb);
+    ans -= mx_d * dfs(0, pbb(true, true), 0, false);
+
+    chg(ra, lb - 1);
+    ans -= mx_d * dfs(0, pbb(true, true), 0, false);
+
+    chg(la - 1, lb - 1);
+    ans += mx_d * dfs(0, pbb(true, true), 0, false);
+    
+    // dbug(mx_d);
+    mx_d ++;
+  }
+
+  cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
+} 
+
+int32_t main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+  
+  int tt = 1, _ = 0;
+  std::cin &gt;&gt; tt;
+  while (tt-- and ++_)
+    // std::cout &lt;&lt; &quot;TEST CASE : &quot; &lt;&lt; _ &lt;&lt; endl,
+    solve();
+
+  return 0;
+}
+
+// // 这个题 其实可以去掉进位的影响
+// // 每一位最多进位是 1, 
+// // 如果 我的最大数字不是 9 的话就一定不会产生连环进位
+// // 如果 mx_d == 9 了, 那么进位之后最多也只会产生 0, 不会威胁到 mx_d 的实现
+// // 哦但是这样有可能影响到 mx_d 的出现次数</code></pre>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="card problem" id="prob-E">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">Problem E. 简单的构造题</span></div>
+  <div class="body">
+    <div class="p-head">
+      <h2><span class="pid">E.</span>简单的构造题</h2>
+      <div class="p-tags"><span class="tag green">构造</span><span class="tag blue">棋盘染色</span><span class="tag orange">中</span></div>
+    </div>
+    <div class="comp"><b>复杂度</b> O(nm)</div>
+    <div class="idea">
+<p>构造 n&times;m 网格填 0 ~ nm-1, 使相邻格子的数值不相邻. 按 (i+j) 奇偶做棋盘染色: 先给偶类格子连续编号 0, 1, 2, ..., 再给奇类编号. 相邻格子必属不同色类, 两类编号至少相差约 nm/2 &ge; 2, 自然满足条件.</p>
+<p>特判: nm &le; 4 无解; 2&times;3 时偶类最大编号(2)与奇类最小编号(3)恰好相邻会冲突, 手动给出一组解.</p>
+</div>
+    <details class="codebox">
+      <summary>
+        <div class="macwin">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">E.cpp</span><span class="hint"><span class="closed-txt">点击展开代码 &#9656;</span><span class="open-txt">点击收起代码 &#9662;</span></span></div>
+        </div>
+      </summary>
+      <div class="macwin" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-12px;">
+        <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define int long long 
+#define ll long long 
+
+void solve() {
+  int n, m;
+  cin &gt;&gt; n &gt;&gt; m;
+  vector&lt;vector&lt;int&gt;&gt; g(n + 1, vector&lt;int&gt;(m + 1));
+
+  if (n * m &lt;= 4) {
+    cout &lt;&lt; &quot;No&quot; &lt;&lt; &quot;\n&quot;;
+    return;
+  }
+
+  if (n == 2 and m == 3) {
+    cout &lt;&lt; &quot;Yes&quot; &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; &quot;5 3 1\n&quot;;
+    cout &lt;&lt; &quot;2 0 4\n&quot;;
+    return;
+  }
+
+  int num = 0;
+  for (int i = 1; i &lt;= n; i ++) {
+    for (int j = 1; j &lt;= m; j ++) {
+      if (!((i + j) &amp; 1)) {
+        g[i][j] = num ++;
+      }
+    }
+  }
+
+  for (int i = 1; i &lt;= n; i ++) {
+    for (int j = 1; j &lt;= m; j ++) {
+      if ((i + j) &amp; 1) {
+        g[i][j] = num ++;
+      }
+    }
+  }
+
+  cout &lt;&lt; &quot;Yes&quot; &lt;&lt; &quot;\n&quot;;
+  for (int i = 1; i &lt;= n; i ++) {
+    for (int j = 1; j &lt;= m; j ++) {
+      cout &lt;&lt; g[i][j] &lt;&lt; &quot; \n&quot;[j == m];
+    }
+  }
+}
+
+int32_t main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  int tt = 1; 
+  cin &gt;&gt; tt;
+  while (tt --) {
+    solve();
+  }
+
+  return 0;
+}</code></pre>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="card problem" id="prob-G">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">Problem G. 吸血鬼爬行者</span></div>
+  <div class="body">
+    <div class="p-head">
+      <h2><span class="pid">G.</span>吸血鬼爬行者</h2>
+      <div class="p-tags"><span class="tag green">贪心</span><span class="tag blue">排序</span><span class="tag orange">中</span></div>
+    </div>
+    <div class="comp"><b>复杂度</b> O(n log n)</div>
+    <div class="idea">
+<p>按颜色分组, 每组内力量降序排序. 贪心结论: 第 j 轮从每种颜色各取出其第 j 大的一张组成一层, 同一层内沿颜色值扫描, 颜色连续 (c == pc+1 且上一张非空) 时连击计数 cnt 递增, 该张贡献 cnt &times; val.</p>
+<p>直觉: 连击系数只和"颜色连续段的长度"有关, 让每种颜色最大的牌们互相组队能把最大的系数乘到最大的权值上(排序不等式), 逐层取第 j 大即可.</p>
+</div>
+    <details class="codebox">
+      <summary>
+        <div class="macwin">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">G.cpp</span><span class="hint"><span class="closed-txt">点击展开代码 &#9656;</span><span class="open-txt">点击收起代码 &#9662;</span></span></div>
+        </div>
+      </summary>
+      <div class="macwin" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-12px;">
+        <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define int long long 
+#define ll long long 
+
+void solve() {
+  int n; cin &gt;&gt; n;
+  map&lt;int, vector&lt;int&gt;&gt; mp;
+  int mx = 0;
+  for (int i = 1; i &lt;= n; i ++) {
+    int c, d; cin &gt;&gt; c &gt;&gt; d;
+    mp[c].push_back(d);
+    mx = max(mx, (int)mp[c].size());
+  }
+
+  for (auto &amp;[c, v] : mp)  sort(v.rbegin(), v.rend());
+
+  int ans = 0;
+  for (int j = 0; j &lt; mx; j++) {
+    int cnt = 0, pc = 0, pv = 0;  
+    for (auto &amp;[c, v] : mp) {
+      int val = j &lt; (int)v.size() ? v[j] : 0;
+      cnt = (c == pc + 1 &amp;&amp; pv) ? cnt + 1 : 1;
+      ans += cnt * val;
+      pc = c, pv = val;
+    }
+  }
+  cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
+}
+
+int32_t main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  int tt = 1; 
+  cin &gt;&gt; tt;
+  while (tt --) {
+    solve();
+  }
+
+  return 0;
+}</code></pre>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="card problem" id="prob-H">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">Problem H. 拼图</span></div>
+  <div class="body">
+    <div class="p-head">
+      <h2><span class="pid">H.</span>拼图</h2>
+      <div class="p-tags"><span class="tag blue">DFS 爆搜</span><span class="tag red">剪枝</span><span class="tag cyan">计数</span><span class="tag orange">中</span></div>
+    </div>
+    <div class="comp"><b>复杂度</b> O(方案树规模), 靠定位剪枝</div>
+    <div class="idea">
+<p>统计用若干碎片(不可旋转)恰好铺满棋盘空位的方案数. 核心剪枝: 每次找<b>行优先第一个空格</b>, 它必须被某个剩余碎片的<b>第一个 '#'</b>(同样行优先)覆盖 -- 对齐方式因此唯一, 每个碎片只需尝试一种放法.</p>
+<p>这个"最小空格锚点"技巧保证同一方案只会以一种顺序被搜到一次, 不重不漏; 越界或与已有方块重叠即剪枝, 铺满时计数 +1.</p>
+</div>
+    <details class="codebox">
+      <summary>
+        <div class="macwin">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">H.cpp</span><span class="hint"><span class="closed-txt">点击展开代码 &#9656;</span><span class="open-txt">点击收起代码 &#9662;</span></span></div>
+        </div>
+      </summary>
+      <div class="macwin" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-12px;">
+        <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define int long long 
+#define ll long long 
+
+void solve() {
+  int n, m, K;
+  cin &gt;&gt; n &gt;&gt; m &gt;&gt; K;
+  vector&lt;vector&lt;int&gt;&gt; grid(n + 1, vector&lt;int&gt;(m + 1, 0));
+  for (int i = 1; i &lt;= n; i ++) {
+    for (int j = 1; j &lt;= m; j ++) {
+      char c;
+      cin &gt;&gt; c;
+      grid[i][j] = (c == &#x27;#&#x27;);
+    }
+  }
+
+  // 1 代表有, 0 代表没有
+  vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; pins(K + 1);
+  for (int i = 1; i &lt;= K; i ++) {
+    int r, c;
+    cin &gt;&gt; r &gt;&gt; c;
+    pins[i].resize(r);
+    for (int j = 0; j &lt; r; j ++) {
+      for (int k = 0; k &lt; c; k ++) {
+        char c; cin &gt;&gt; c;
+        pins[i][j].push_back(c == &#x27;#&#x27;);
+      }
+    }
+  }
+
+  map&lt;int, array&lt;int, 2&gt;&gt; corner;
+  for (int i = 1; i &lt;= K; i ++) {
+    bool f = false;
+    for (int j = 0; j &lt; pins[i].size(); j ++) {
+      for (int k = 0; k &lt; pins[i][j].size(); k ++) {
+        if (pins[i][j][k]) {
+          corner[i] = {j, k};
+          f = true;
+          if (f) break;
+        }
+      }
+      if (f) break;
+    }
+  }
+
+  vector&lt;int&gt; REM;
+  for (int i = 1; i &lt;= K; i ++) REM.push_back(i);
+
+  auto chk_yes = [&amp;](const auto &amp;g) -&gt; bool {
+    for (int i = 1; i &lt;= n; i ++) {
+      for (int j = 1; j &lt;= m; j ++) {
+        if (g[i][j] == 0) {
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+
+  auto find_corner = [&amp;](const auto &amp;g) -&gt; array&lt;int, 2&gt; {
+    for (int i = 1; i &lt;= n; i ++) {
+      for (int j = 1; j &lt;= m; j ++) {
+        if (g[i][j] == 0) {
+          return {i, j};
+        }
+      }
+    }
+    return {-1, -1};
+  };
+
+  auto chk_coor = [&amp;](int x, int y) -&gt; bool {
+    return x &gt; 0 and x &lt;= n and y &gt; 0 and y &lt;= m;
+  };
+
+  int ans = 0;
+  auto dfs = [&amp;](auto &amp;&amp;sef, vector&lt;vector&lt;int&gt;&gt;&amp; G, vector&lt;int&gt;&amp; rem) -&gt; void {
+    if (chk_yes(G)) {
+      ans ++;
+      return;
+    }
+    
+    auto [X, Y] = find_corner(G);
+    for (int &amp;idx : rem) {
+      if (idx == 0) continue;
+      auto [x, y] = corner[idx];
+      int difx = x - X, dify = y - Y;
+      bool f = true;
+      for (int i = 0; i &lt; pins[idx].size(); i ++) {
+        for (int j = 0; j &lt; pins[idx][i].size(); j ++) {
+          int curx = i - difx, cury = j - dify;
+          if (!chk_coor(curx, cury) or pins[idx][i][j] &amp; G[curx][cury]) {
+            f = false;
+            break;
+          }
+        }
+        if (!f) break;
+      }
+      
+      if (!f) continue;
+      auto g = G;
+      for (int i = 0; i &lt; pins[idx].size(); i ++) {
+        for (int j = 0; j &lt; pins[idx][i].size(); j ++) {
+          int curx = i - difx, cury = j - dify;
+          if (pins[idx][i][j]) {
+            g[curx][cury] = 1;
+          }
+        }
+      }
+      
+      int temp = idx; idx = 0;
+      sef(sef, g, rem);
+      idx = temp;
+    }
+  };
+
+  dfs(dfs, grid, REM);
+
+  cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
+}
+
+int32_t main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  int tt = 1, _ = 0; 
+  cin &gt;&gt; tt;
+  while (tt -- and ++_) {
+    // cout &lt;&lt; &quot;TEST_CASE: &quot; &lt;&lt; _ &lt;&lt; &quot;\n&quot;;
+    solve();
+  }
+
+  return 0;
+}</code></pre>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="card problem" id="prob-I">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">Problem I. 版本号</span></div>
+  <div class="body">
+    <div class="p-head">
+      <h2><span class="pid">I.</span>版本号</h2>
+      <div class="p-tags"><span class="tag green">签到</span><span class="tag green">签到</span></div>
+    </div>
+    <div class="comp"><b>复杂度</b> O(n log n)</div>
+    <div class="idea">
+<p>把 (主版本, 次版本) 作为 pair 排序, 取最大的输出即可.</p>
+</div>
+    <details class="codebox">
+      <summary>
+        <div class="macwin">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">I.cpp</span><span class="hint"><span class="closed-txt">点击展开代码 &#9656;</span><span class="open-txt">点击收起代码 &#9662;</span></span></div>
+        </div>
+      </summary>
+      <div class="macwin" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-12px;">
+        <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define int long long 
+#define ll long long 
+
+using pii = pair&lt;int, int&gt;;
+
+void solve() {
+  int n; cin &gt;&gt; n;
+  vector&lt;pii&gt; a(n);
+  for (int i = 0; i &lt; n; i ++) {
+    cin &gt;&gt; a[i].first &gt;&gt; a[i].second;
+  }
+
+  sort(a.begin(), a.end(), greater&lt;pii&gt;());
+  cout &lt;&lt; a[0].first &lt;&lt; &#x27; &#x27; &lt;&lt; a[0].second &lt;&lt; &quot;\n&quot;;
+}
+
+int32_t main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  int tt = 1; 
+  cin &gt;&gt; tt;
+  while (tt --) {
+    solve();
+  }
+
+  return 0;
+}</code></pre>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="card problem" id="prob-J">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">Problem J. 插松枝</span></div>
+  <div class="body">
+    <div class="p-head">
+      <h2><span class="pid">J.</span>插松枝</h2>
+      <div class="p-tags"><span class="tag blue">DP</span><span class="tag purple">线段树</span><span class="tag cyan">值域分层</span><span class="tag red">边界规约</span><span class="tag red">最难</span></div>
+    </div>
+    <div class="comp"><b>复杂度</b> O(n log n)</div>
+    <div class="idea">
+<p>按值从大到小分批删除, 每批删完后隔板 (divider) 只可能停在本批区间的左端或右端, 于是设 dp[i][0/1] = 处理完第 i 大的值后, 隔板停在 L-1 缝 / R 缝的最小移动次数, 答案为 n + min(dp).</p>
+<p>这题真正的坑在<b>边界口径</b>, 补题时专门做了统一规约: 用整数 b 表示隔板卡在位置 b 与 b+1 之间的"缝", 停在 R 即 R 的右侧缝 (=cr), 停在 L 即 L 的左侧缝 (=cl-1).</p>
+<ul>
+<li><b>缝到缝移动 T(lo, hi)</b>: 跨过的位置是半开半闭 (lo, hi], 代价 = (hi-lo) - 已删除数 - 本批待删数, 三个量全用 [lo+1, hi] 口径;</li>
+<li><b>整段扫描 sweep</b>: 覆盖闭区间 [L, R], 代价 = (cr-cl+1) - 已删除数 - k, 全用 [cl, cr] 口径;</li>
+<li>已删除的元素数量用<b>线段树</b>单点加 + 区间查询维护, 本批元素在有序位置数组上二分统计.</li>
+</ul>
+<p>两段衔接在位置上首尾相接: T 覆盖到缝 cl-1, sweep 从位置 cl 开始, 不缺格不重复; 本批针在两段里各自被扣掉, 因为它们是"插入"而非"移动". 结论一句话: <b>T 是缝到缝 (lo, hi], sweep 是位置到位置 [L, R], 停 R 落 R 缝, 停 L 落 L-1 缝</b>, 全部由"边界 = 右侧缝"一条规约推出.</p>
+</div>
+    <details class="codebox">
+      <summary>
+        <div class="macwin">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">J.cpp</span><span class="hint"><span class="closed-txt">点击展开代码 &#9656;</span><span class="open-txt">点击收起代码 &#9662;</span></span></div>
+        </div>
+      </summary>
+      <div class="macwin" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-12px;">
+        <pre><code class="language-cpp">// @Author : GoryK
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define int int64_t
+
+#ifdef LOCAL
+  #include &quot;__DEBUG_TOOL.h&quot;
+#else 
+  #define dbug(...)
+#endif
+
+// REGISTER_REFLECT()
+
+class SGT {
+  std::vector&lt;int&gt; seg;
+  int off = 0;
+  void pull(int i) { seg[i] = seg[i &lt;&lt; 1] + seg[i &lt;&lt; 1 | 1]; }   
+ public:
+  SGT() = delete;
+  SGT(int n) {
+    off = std::bit_ceil(unsigned(n + 2));
+    seg.assign(off &lt;&lt; 1, 0);
+  }
+  void add(int i) {            
+    seg[i += off]++;
+    while (i &gt;&gt;= 1) pull(i);
+  }
+  int ask(int l, int r) {             
+    if (l &gt; r) return 0;
+    int res = 0;
+    for (l += off - 1, r += off + 1; l ^ r ^ 1; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+      if (~l &amp; 1) res += seg[l ^ 1];
+      if (r &amp; 1)  res += seg[r ^ 1];
+    }
+    return res;
+  }
+};
+
+void solve() {
+  int n; cin &gt;&gt; n;
+  vector&lt;int&gt; a(n + 1);
+  for (int i = 1; i &lt;= n; i ++) {
+    cin &gt;&gt; a[i];
+  }
+
+  map&lt;int, int&gt; L, R;
+  map&lt;int, vector&lt;int&gt;&gt; pos;
+  for (int i = 1; i &lt;= n; i ++) {
+    R[a[i]] = i; 
+    pos[a[i]].push_back(i);
+  }
+
+  for (int i = n; i &gt;= 1; i --) {
+    L[a[i]] = i; 
+  }
+
+  auto v = a;
+  sort(v.rbegin(), v.rend() - 1);
+  v.erase(unique(v.begin(), v.end()), v.end());
+  // dbug(v);
+  
+  SGT seg(n + 1);
+
+  L[0] = 1; R[0] = 1;
+  // 区间内 已经被删掉的元素数量
+  auto del = [&amp;](int l, int r) -&gt; int { return seg.ask(l, r); };
+
+  vector&lt;array&lt;int, 2&gt;&gt; dp(v.size(), {INT_MAX, INT_MAX});
+  dp[0] = {0, 0};
+
+  for (int i = 1; i &lt; (int)dp.size(); i++) {
+    auto&amp; P = pos[v[i]];
+    int cl = L[v[i]], cr = R[v[i]], k = (int)P.size();
+
+    // lst_l -&gt; L -&gt; R
+    // lst_l -&gt; R -&gt; L
+    // lst_r -&gt; L -&gt; R
+    // lst_r -&gt; R -&gt; L
+
+    // 这个区间有多少这次要删除的元素
+    auto pc = [&amp;](int l, int r) -&gt; int {
+      // [l, r)
+      return (int)(upper_bound(P.begin(), P.end(), r)
+                 - lower_bound(P.begin(), P.end(), l));
+    };
+
+    auto T = [&amp;](int b1, int b2) -&gt; int {
+      int lo = min(b1, b2), hi = max(b1, b2);
+      if (lo == hi) return 0;
+      return (hi - lo) - del(lo + 1, hi) - pc(lo + 1, hi);
+    };
+
+    // 除掉 之前的删掉的数字, 和这次要删掉的数字, 从 cl 到 cr 还剩下多少数字
+    int sweep = (cr - cl + 1) - del(cl, cr) - k;
+    int pr = (i == 1) ? 0 : R[v[i - 1]];
+    int pl = (i == 1) ? 0 : L[v[i - 1]] - 1;
+
+    // lst_d -&gt; cur_d ^ 1 -&gt; cur_d
+    // 等于 走完 [L, R] 的完整的没删的 + lst_d -&gt; cur_d ^ 1 的删掉的
+    // 也就是 T(lst_d, cur_(d ^ 1)) + sweep
+ 
+    // 用每个边界的左边的数字代替这个边界
+    // 假如边界两段都是要删除的元素, 操作就是从 r 的右端移动到 l 的右端, 再加上删掉 l 的操作
+    
+
+    dp[i][0] = min(dp[i - 1][0] + T(pr, cl - 1), dp[i - 1][1] + T(pl, cl - 1)) + sweep;
+    dp[i][1] = min(dp[i - 1][0] + T(pr, cr),     dp[i - 1][1] + T(pl, cr)) + sweep;
+
+    for (int&amp; p : P) seg.add(p);
+  }
+
+  cout &lt;&lt; n + min(dp.back()[0], dp.back()[1]) &lt;&lt; &quot;\n&quot;;
+} 
+
+int32_t main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+  
+  int tt = 1, _ = 0;
+  std::cin &gt;&gt; tt;
+  while (tt-- and ++_)
+    // std::cout &lt;&lt; &quot;TEST CASE : &quot; &lt;&lt; _ &lt;&lt; endl,
+    solve();
+
+  return 0;
+}</code></pre>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="card problem" id="prob-K">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">Problem K. 最小生成树</span></div>
+  <div class="body">
+    <div class="p-head">
+      <h2><span class="pid">K.</span>最小生成树</h2>
+      <div class="p-tags"><span class="tag blue">Kruskal</span><span class="tag green">贪心</span><span class="tag orange">分类讨论</span><span class="tag orange">中</span></div>
+    </div>
+    <div class="comp"><b>复杂度</b> O(m log m)</div>
+    <div class="idea">
+<p>k 个特殊点在生成树中必须是叶子, 即特殊点之间不能相邻 (n &gt; 2 时). 把边分成两类: 两端都是普通点的 edges1, 至少一端是特殊点的 edges2.</p>
+<p>两阶段 Kruskal: 先用 edges1 把 n-k 个普通点连成一棵树 (连不成输出 -1); 再对 edges2 排序跑 Kruskal, n &gt; 2 时跳过两端都是特殊点的边, 把每个特殊点挂到普通点骨架上. 正确性: 特殊点是叶子意味着删掉它们后剩余普通点必须自身连通, 两阶段各自取最小恰好是全局最优.</p>
+<p>注意 n = 2 的特判: 此时允许两个特殊点直接相连.</p>
+</div>
+    <details class="codebox">
+      <summary>
+        <div class="macwin">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">K.cpp</span><span class="hint"><span class="closed-txt">点击展开代码 &#9656;</span><span class="open-txt">点击收起代码 &#9662;</span></span></div>
+        </div>
+      </summary>
+      <div class="macwin" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-12px;">
+        <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define int long long 
+#define ll long long 
+
+class DSU {
+ public: 
+  vector&lt;int&gt; f, siz, dis;
+  DSU(int n) {
+    f.resize(n);
+    iota(f.begin(), f.end(), 0LL);
+    siz.assign(n, 1);
+    dis.assign(n, 0);
+  }
+
+  int find(int x) {
+    if (x != f[x]) {
+      int ffx = find(f[x]);
+      f[x] = ffx;
+    }
+    return f[x];
+  }
+
+  bool same(int x, int y) {
+    return find(x) == find(y);
+  }
+
+  bool merge(int x, int y) {
+    int fx = find(x), fy = find(y);
+    if (fx == fy) {
+      return false;
+    }
+    f[fx] = fy;
+    siz[fy] += siz[fx];
+    return true;
+  }
+
+  int size(int x) {
+    return siz[find(x)];
+  }
+};
+
+void solve() {
+  int n, m, k;
+  cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+
+  map&lt;int, int&gt; spe;
+  for (int i = 1; i &lt;= k; i ++) {
+    int v; cin &gt;&gt; v;
+    spe[v] = 1;
+  }
+
+  vector&lt;array&lt;int, 3&gt;&gt; edges;
+  for (int i = 1; i &lt;= m; i ++) {
+    int u, v, w;
+    cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
+    edges.push_back({u, v, w});
+  }
+  
+  vector&lt;array&lt;int, 3&gt;&gt; edges1, edges2;
+  for (const auto&amp;[u, v, w] : edges) {
+    if (spe[u] or spe[v]) {
+      edges2.push_back({u, v, w});
+    } else {
+      edges1.push_back({u, v, w});
+    }
+  }
+
+  sort(edges1.begin(), edges1.end(), [&amp;](const auto &amp;a, const auto &amp;b){
+    return a[2] &lt; b[2];
+  });
+
+  sort(edges2.begin(), edges2.end(), [&amp;](const auto &amp;a, const auto &amp;b){
+    return a[2] &lt; b[2];
+  });
+
+  DSU dsu(n + 1);
+  int ans = 0, cnt = 1;
+  for (auto &amp;[u, v, w] : edges1) {
+    if (dsu.same(u, v)) {
+      continue;
+    } else {
+      dsu.merge(u, v);
+      ans += w;
+      cnt ++;
+    }
+    if (cnt == n - k) break;
+  }
+  
+  if (cnt &lt; n - k) {
+    cout &lt;&lt; -1 &lt;&lt; &#x27;\n&#x27;;
+    return;
+  }
+
+  for (auto &amp;[u, v, w] : edges2) {
+    if (n &gt; 2 and spe[u] + spe[v] &gt; 1 or dsu.same(u, v)) {
+      continue;
+    } else {
+      dsu.merge(u, v);
+      ans += w;
+      cnt ++;
+    }
+    if (cnt == n) break;
+  }
+
+  if (cnt &lt; n) {
+    cout &lt;&lt; -1 &lt;&lt; &quot;\n&quot;;
+    return;
+  }
+
+  cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
+}
+int32_t main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  int tt = 1; 
+  cin &gt;&gt; tt;
+  while (tt --) {
+    solve();
+  }
+
+  return 0;
+}</code></pre>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="card problem" id="prob-L">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">Problem L. 分数迭代</span></div>
+  <div class="body">
+    <div class="p-head">
+      <h2><span class="pid">L.</span>分数迭代</h2>
+      <div class="p-tags"><span class="tag purple">数论</span><span class="tag blue">gcd</span><span class="tag cyan">断点预处理</span><span class="tag red">难</span></div>
+    </div>
+    <div class="comp"><b>复杂度</b> O(&radic;V + &Omega;(diff) + q log)</div>
+    <div class="idea">
+<p>化简分数 (a+k)/(b+k). 关键恒等式: gcd(a+k, b+k) = gcd(a+k, |a-b|), 所以公因子只可能来自 diff = |a-b| 的质因子, 且随 k 变化的"约分结构"只有 O(&Omega;(diff)) &asymp; 40 个断点.</p>
+<p>预处理: 线性筛 + 分解 diff; 从 k = 0 出发, 每轮在剩余质因子中找最小的增量 k, 使当前约简后的 (a', b') 能再吃掉一个质因子, 记录断点 -&gt; 约简结果的映射 (map).</p>
+<p>查询: upper_bound 定位到 &le; k 的最后一个断点, 在该断点的约简结果上平移差量 d, 最后再做一次 gcd 兜底化简输出.</p>
+</div>
+    <details class="codebox">
+      <summary>
+        <div class="macwin">
+<div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tb-title">L.cpp</span><span class="hint"><span class="closed-txt">点击展开代码 &#9656;</span><span class="open-txt">点击收起代码 &#9662;</span></span></div>
+        </div>
+      </summary>
+      <div class="macwin" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-12px;">
+        <pre><code class="language-cpp">// @Author : GoryK
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define int int64_t
+
+#ifdef LOCAL
+  #include &quot;__DEBUG_TOOL.h&quot;
+#else 
+  #define dbug(...)
+#endif
+
+// REGISTER_REFLECT()
+
+const int N = 1e6;
+vector&lt;int&gt; pr;
+vector&lt;int&gt; vis(N + 1, 0);
+
+void prime(int n) {
+  vis[1] = 1;
+  for (int i = 2; i &lt;= n; i ++) {
+    if(!vis[i]) pr.push_back(i) ;  
+    for (const auto&amp; j : pr) {
+      if (i * j &gt; n) break; 
+      vis[i * j] = 1; 
+      if (i % j == 0) break; 
+    }
+  }
+}
+
+map&lt;int, int&gt; cal_fac(int n) {
+  map&lt;int, int&gt; res;
+  for (int&amp; p : pr) {
+    if (p * p &gt; n) break;
+    while (n % p == 0) { res[p]++; n /= p; }
+  }
+  if (n &gt; 1) res[n] ++;
+  return res;
+}
+
+void solve() {
+  int a, b, q;
+  cin &gt;&gt; a &gt;&gt; b &gt;&gt; q;
+  int diff = abs(a - b);
+  auto fac = cal_fac(diff);
+
+  auto cal = [&amp;](int a, int i) -&gt; int {
+    return (i - a % i) % i;
+  };
+
+  // 问题转化成, 对于一个 gcd(a, b) == 1 来说, 如何快速找到
+  // gcd(a + k, b + k) == i 的最小 k 
+  using pii = pair&lt;int, int&gt;;
+  map&lt;int, pii&gt; ans;
+  ans[0] = pair(a, b);
+  while (fac.size()) {
+    int g = 1, k = LLONG_MAX;
+    auto [pre, TEMP] = *prev(ans.end());
+    auto [cur_a, cur_b] = TEMP;
+    // 找最小的 k, 且有 gcd(a + k, b + k) == g
+    for (auto &amp;[f, cnt] : fac) {
+      int res = cal(cur_a, f);
+      if (res &lt; k) {
+        k = res; 
+        g = f;
+      }
+    }
+
+    ans[pre + k] = pair((cur_a + k) / g, (cur_b + k) / g);
+    if (!--fac[g]) fac.erase(g);
+  }
+
+  // dbug(ans);
+
+  for (int i = 1; i &lt;= q; i ++) {
+    int k; cin &gt;&gt; k;
+    auto it = prev(ans.upper_bound(k));
+    int d = k - it -&gt; first;
+    int A = it -&gt; second.first + d, 
+        B = it -&gt; second.second + d,
+        G = __gcd(A, B);
+    cout &lt;&lt; A / G &lt;&lt; &#x27; &#x27; &lt;&lt; B / G &lt;&lt; &quot;\n&quot;;
+  }
+}
+
+int32_t main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+  
+  prime(N);
+
+  int tt = 1, _ = 0;
+  std::cin &gt;&gt; tt;
+  while (tt-- and ++_)
+    // std::cout &lt;&lt; &quot;TEST CASE : &quot; &lt;&lt; _ &lt;&lt; endl,
+    solve();
+
+  return 0;
+}</code></pre>
+      </div>
+    </details>
+  </div>
+</div>
+
+<footer>7.15 补题报告 &middot; 2026 SDCPC &middot; 25 李增睿 &middot; One Dark / macOS style</footer>
+</div>
+<a class="backtop" href="#top" title="回到顶部">&#8679;</a>
+<script>
+hljs.highlightAll();
+let __openState = [];
+window.addEventListener('beforeprint', () => {
+  const all = document.querySelectorAll('details.codebox');
+  __openState = Array.from(all, d => d.open);
+  all.forEach(d => d.open = true);
+});
+window.addEventListener('afterprint', () => {
+  document.querySelectorAll('details.codebox').forEach((d, i) => d.open = __openState[i] ?? false);
+});
+</script>
+</body>
+</html>

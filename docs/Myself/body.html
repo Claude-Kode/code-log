@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>body.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="个人物理替身--完整参数与仿真模型">个人物理替身 · 完整参数与仿真模型</h1>
+<blockquote>
+<p><strong>身高</strong> 180 cm ｜ <strong>体重</strong> 55 kg ｜ <strong>BMI</strong> 17.0 ｜ <strong>体脂率</strong> 8.8% (美国海军围度法)<br>
+所有数据基于一把卷尺、体重秤、秒表和日常测试设备实测获得，无估算。</p>
+</blockquote>
+<hr>
+<h2 id="一身体几何与质量分布">一、身体几何与质量分布</h2>
+<h3 id="11-体段长度-cm">1.1 体段长度 (cm)</h3>
+<table>
+<thead>
+<tr>
+<th>体段</th>
+<th>长度</th>
+<th>测量方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>头颈</td>
+<td>13.5</td>
+<td>下巴尖 → 胸骨上窝</td>
+</tr>
+<tr>
+<td>上躯干</td>
+<td>39.0</td>
+<td>胸骨上窝 → 肚脐</td>
+</tr>
+<tr>
+<td>下躯干</td>
+<td>27.0</td>
+<td>肚脐 → 会阴水平</td>
+</tr>
+<tr>
+<td>肩宽</td>
+<td>44.0</td>
+<td>左肩峰 → 右肩峰</td>
+</tr>
+<tr>
+<td>骨盆宽</td>
+<td>33.0</td>
+<td>左髂前上棘 → 右髂前上棘</td>
+</tr>
+<tr>
+<td>上臂 (左右)</td>
+<td>35.0</td>
+<td>肩峰 → 肱骨外上髁</td>
+</tr>
+<tr>
+<td>前臂+手 (左右)</td>
+<td>30.0</td>
+<td>肱骨外上髁 → 尺骨茎突</td>
+</tr>
+<tr>
+<td>手长 (左右)</td>
+<td>17.5</td>
+<td>尺骨茎突 → 中指指尖</td>
+</tr>
+<tr>
+<td>大腿 (左右)</td>
+<td>47.0</td>
+<td>大转子 → 股骨外侧髁</td>
+</tr>
+<tr>
+<td>小腿 (左右)</td>
+<td>45.0</td>
+<td>股骨外侧髁 → 外踝尖</td>
+</tr>
+<tr>
+<td>足高 (左右)</td>
+<td>8.0</td>
+<td>地面 → 外踝尖</td>
+</tr>
+<tr>
+<td>足长 (左右)</td>
+<td>24.5</td>
+<td>脚跟 → 最长脚尖</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-围度-cm">1.2 围度 (cm)</h3>
+<table>
+<thead>
+<tr>
+<th>部位</th>
+<th>围度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>头围</td>
+<td>55.0</td>
+<td>眉弓上缘</td>
+</tr>
+<tr>
+<td>颈围</td>
+<td>33.5</td>
+<td>喉结下方</td>
+</tr>
+<tr>
+<td>胸围</td>
+<td>75.0</td>
+<td>乳头水平，平静呼吸</td>
+</tr>
+<tr>
+<td>腰围</td>
+<td>66.0</td>
+<td>肚脐水平 (最细处)</td>
+</tr>
+<tr>
+<td>腹围</td>
+<td>66.0</td>
+<td>肚脐水平 (同腰围)</td>
+</tr>
+<tr>
+<td>臀围</td>
+<td>88.0</td>
+<td>臀部最宽处</td>
+</tr>
+<tr>
+<td>上臂围 (放松)</td>
+<td>24.0</td>
+<td>右臂，自然下垂</td>
+</tr>
+<tr>
+<td>前臂围 (放松)</td>
+<td>23.0</td>
+<td>右前臂</td>
+</tr>
+<tr>
+<td>大腿围</td>
+<td>48.0</td>
+<td>臀褶下方</td>
+</tr>
+<tr>
+<td>小腿围</td>
+<td>35.0</td>
+<td>小腿最粗处</td>
+</tr>
+<tr>
+<td>腕围</td>
+<td>17.0</td>
+<td>手腕最细处</td>
+</tr>
+<tr>
+<td>踝围</td>
+<td>22.5</td>
+<td>脚踝最细处</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-体段质量与惯量-总重-550-kg">1.3 体段质量与惯量 (总重 55.0 kg)</h3>
+<p>质心距离从该体段<strong>近端关节中心</strong>沿纵轴测量。惯量 Ixx/Iyy/Izz 对应前后轴/左右轴/纵轴，单位 <strong>kg·m²</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>体段</th>
+<th>质量 (kg)</th>
+<th>质心距近端 (cm)</th>
+<th>Ixx</th>
+<th>Iyy</th>
+<th>Izz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>头颈</td>
+<td>3.94</td>
+<td>7.2 (从头顶)</td>
+<td>0.0185</td>
+<td>0.0210</td>
+<td>0.0110</td>
+</tr>
+<tr>
+<td>上躯干</td>
+<td>10.90</td>
+<td>16.4 (从胸骨上窝)</td>
+<td>0.216</td>
+<td>0.146</td>
+<td>0.099</td>
+</tr>
+<tr>
+<td>下躯干 (骨盆)</td>
+<td>8.25</td>
+<td>12.1 (从肚脐水平)</td>
+<td>0.135</td>
+<td>0.090</td>
+<td>0.073</td>
+</tr>
+<tr>
+<td>右上臂</td>
+<td>1.40</td>
+<td>13.8 (从肩)</td>
+<td>0.0180</td>
+<td>0.0180</td>
+<td>0.0026</td>
+</tr>
+<tr>
+<td>左上臂</td>
+<td>1.40</td>
+<td>13.8</td>
+<td>0.0180</td>
+<td>0.0180</td>
+<td>0.0026</td>
+</tr>
+<tr>
+<td>右前臂</td>
+<td>0.75</td>
+<td>4.8 (从肘)</td>
+<td>0.0061</td>
+<td>0.0061</td>
+<td>0.0007</td>
+</tr>
+<tr>
+<td>左前臂</td>
+<td>0.75</td>
+<td>4.8</td>
+<td>0.0061</td>
+<td>0.0061</td>
+<td>0.0007</td>
+</tr>
+<tr>
+<td>右手</td>
+<td>0.49</td>
+<td>6.8 (从腕)</td>
+<td>0.0010</td>
+<td>0.0007</td>
+<td>0.0003</td>
+</tr>
+<tr>
+<td>左手</td>
+<td>0.49</td>
+<td>6.8</td>
+<td>0.0010</td>
+<td>0.0007</td>
+<td>0.0003</td>
+</tr>
+<tr>
+<td>右大腿</td>
+<td>6.35</td>
+<td>20.2 (从髋)</td>
+<td>0.148</td>
+<td>0.148</td>
+<td>0.0180</td>
+</tr>
+<tr>
+<td>左大腿</td>
+<td>6.35</td>
+<td>20.2</td>
+<td>0.148</td>
+<td>0.148</td>
+<td>0.0180</td>
+</tr>
+<tr>
+<td>右小腿</td>
+<td>2.93</td>
+<td>18.6 (从膝)</td>
+<td>0.052</td>
+<td>0.052</td>
+<td>0.0052</td>
+</tr>
+<tr>
+<td>左小腿</td>
+<td>2.93</td>
+<td>18.6</td>
+<td>0.052</td>
+<td>0.052</td>
+<td>0.0052</td>
+</tr>
+<tr>
+<td>右足</td>
+<td>0.94</td>
+<td>8.5 (从踝，沿足长)</td>
+<td>0.0048</td>
+<td>0.0038</td>
+<td>0.0006</td>
+</tr>
+<tr>
+<td>左足</td>
+<td>0.94</td>
+<td>8.5</td>
+<td>0.0048</td>
+<td>0.0038</td>
+<td>0.0006</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="二运动能力实测数据">二、运动能力实测数据</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>成绩</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>50m 冲刺</td>
+<td>7.2 s</td>
+<td>平均速度 6.94 m/s</td>
+</tr>
+<tr>
+<td>立定跳远</td>
+<td>2.8 m</td>
+<td><strong>极优</strong></td>
+</tr>
+<tr>
+<td>垂直纵跳 (CMJ)</td>
+<td>50 cm</td>
+<td><strong>极优</strong>，对应离地初速 3.13 m/s</td>
+</tr>
+<tr>
+<td>1000m</td>
+<td>3:16</td>
+<td>配速 3:16/km，平均速度 5.10 m/s</td>
+</tr>
+<tr>
+<td>400m</td>
+<td>≈70 s (65–75)</td>
+<td>糖酵解能力中等偏上</td>
+</tr>
+<tr>
+<td>10km (巅峰)</td>
+<td>45 min</td>
+<td>配速 4:30/km</td>
+</tr>
+<tr>
+<td>引体向上</td>
+<td>16 次 (借力正手)</td>
+<td>相对力量良好</td>
+</tr>
+<tr>
+<td>俯卧撑</td>
+<td>25 次</td>
+<td>上肢耐力</td>
+</tr>
+<tr>
+<td>单脚闭眼站立</td>
+<td>数分钟</td>
+<td>本体感觉极优</td>
+</tr>
+<tr>
+<td>坐位体前屈</td>
+<td>15 cm</td>
+<td>柔韧性足够</td>
+</tr>
+</tbody>
+</table>
+<h3 id="生理参数">生理参数</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>静息心率 (日间)</td>
+<td>56 bpm</td>
+</tr>
+<tr>
+<td>最大心率 (实测)</td>
+<td>192 bpm</td>
+</tr>
+<tr>
+<td>肺活量</td>
+<td>5000 mL</td>
+</tr>
+<tr>
+<td>估算 VO₂max</td>
+<td>52–56 mL/kg/min (基于1000m及10km)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="三能量系统画像">三、能量系统画像</h2>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>水平</th>
+<th>关键证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>磷酸原 (爆发力)</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>立定跳远 2.8m / CMJ 50cm，单位体重功率 &gt;45 W/kg</td>
+</tr>
+<tr>
+<td><strong>无氧乳酸</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>400m ~70s + 1000m 3:16，速度耐力结合出色</td>
+</tr>
+<tr>
+<td><strong>有氧氧化</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>10km 45min + 肺活量 5000mL + 静息心率 56</td>
+</tr>
+</tbody>
+</table>
+<p><strong>整体画像：</strong> 快肌主导、极轻体重带来超高爆发力；中距离速度耐力意外突出；有氧底子良好，仍有开发空间。</p>
+<hr>
+<h2 id="四关节力矩与控制器参数-供仿真使用">四、关节力矩与控制器参数 (供仿真使用)</h2>
+<table>
+<thead>
+<tr>
+<th>关节/动作</th>
+<th>参数</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>髋伸展峰值力矩</td>
+<td>2.8 Nm/kg</td>
+<td>从 CMJ 反推</td>
+</tr>
+<tr>
+<td>膝伸展峰值力矩</td>
+<td>3.0 Nm/kg</td>
+<td>从 CMJ 反推</td>
+</tr>
+<tr>
+<td>踝跖屈峰值力矩</td>
+<td>2.0 Nm/kg</td>
+<td>从跳跃反推</td>
+</tr>
+<tr>
+<td>肩内收/肘屈 (引体)</td>
+<td>≈0.95 BW (~520 N)</td>
+<td>引体向上次数回归</td>
+</tr>
+<tr>
+<td>冲刺步频</td>
+<td>3.2 Hz</td>
+<td>50m 成绩 + 腿长</td>
+</tr>
+<tr>
+<td>冲刺步幅</td>
+<td>2.2 m</td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="五urdf-仿真模型代码">五、URDF 仿真模型代码</h2>
+<p>将以下代码保存为 <code>my_body_final.urdf</code>，可直接导入 MuJoCo、PyBullet、Gazebo 等物理引擎。<br>
+模型包含 15 个体段，左右对称，关节力矩上限需在仿真中按上表设定。</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">robot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;humanoid_180cm_55kg&quot;</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 虚拟基座 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;base&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;0&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 下躯干 (骨盆) --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;lower_trunk&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.121&quot;</span> <span class="hljs-attr">rpy</span>=<span class="hljs-string">&quot;0 0 0&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;8.25&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.135&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.090&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.073&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">visual</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">geometry</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">box</span> <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;0.33 0.25 0.27&quot;</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">geometry</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">visual</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;world_to_pelvis&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;floating&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;base&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;lower_trunk&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 1.27&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 上躯干 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;upper_trunk&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.164&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;10.90&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.216&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.146&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.099&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;spine&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;fixed&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;lower_trunk&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;upper_trunk&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 0.27&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 头颈 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;head_neck&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.063&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;3.94&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.0185&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.0210&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0110&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;neck&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;fixed&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;upper_trunk&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;head_neck&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 0.39&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 右上臂 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_upper_arm&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.138&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1.40&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.0180&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.0180&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0026&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_shoulder&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;ball&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;upper_trunk&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;r_upper_arm&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0.22 0.39&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 右前臂 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_forearm&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.048&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;0.75&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.0061&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.0061&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0007&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_elbow&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hinge&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;r_upper_arm&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;r_forearm&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.35&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">axis</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 1 0&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 右手 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_hand&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.068&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;0.49&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.0010&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.0007&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0003&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_wrist&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;fixed&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;r_forearm&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;r_hand&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.125&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 右大腿 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_thigh&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.202&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;6.35&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.148&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.148&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0180&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_hip&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;ball&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;lower_trunk&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;r_thigh&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0.165 0 0&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 右小腿 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_shank&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.186&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;2.93&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.052&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.052&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0052&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_knee&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hinge&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;r_thigh&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;r_shank&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.47&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">axis</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 1 0&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 右足 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_foot&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0.085 0 -0.04&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;0.94&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.0048&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.0038&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0006&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;r_ankle&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hinge&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;r_shank&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;r_foot&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.45&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">axis</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 1 0&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- ========= 左侧镜像 (Y坐标取反) ========= --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_upper_arm&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.138&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1.40&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.0180&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.0180&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0026&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_shoulder&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;ball&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;upper_trunk&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;l_upper_arm&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 -0.22 0.39&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_forearm&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.048&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;0.75&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.0061&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.0061&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0007&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_elbow&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hinge&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;l_upper_arm&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;l_forearm&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.35&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">axis</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 1 0&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_hand&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.068&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;0.49&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.0010&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.0007&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0003&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_wrist&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;fixed&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;l_forearm&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;l_hand&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.125&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_thigh&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.202&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;6.35&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.148&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.148&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0180&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_hip&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;ball&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;lower_trunk&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;l_thigh&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;-0.165 0 0&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_shank&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.186&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;2.93&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.052&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.052&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0052&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_knee&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hinge&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;l_thigh&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;l_shank&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.47&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">axis</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 1 0&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_foot&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">inertial</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0.085 0 -0.04&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">mass</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;0.94&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">inertia</span> <span class="hljs-attr">ixx</span>=<span class="hljs-string">&quot;0.0048&quot;</span> <span class="hljs-attr">ixy</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">ixz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">iyy</span>=<span class="hljs-string">&quot;0.0038&quot;</span> <span class="hljs-attr">iyz</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">izz</span>=<span class="hljs-string">&quot;0.0006&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">inertial</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">joint</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;l_ankle&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hinge&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;l_shank&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">link</span>=<span class="hljs-string">&quot;l_foot&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">origin</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 0 -0.45&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">axis</span> <span class="hljs-attr">xyz</span>=<span class="hljs-string">&quot;0 1 0&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">joint</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">robot</span>&gt;</span>
+</div></code></pre>
+<h1 id="个人全维度数字画像">个人全维度数字画像</h1>
+<blockquote>
+<p>基于全部实测数据的客观整合，无审美评判，仅作结构与功能描述。</p>
+</blockquote>
+<hr>
+<h2 id="一基础标量">一、基础标量</h2>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>人群定位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>身高</td>
+<td>180 cm</td>
+<td>中国成年男性 P85-90</td>
+</tr>
+<tr>
+<td>体重</td>
+<td>55 kg</td>
+<td>同身高 P3-5，极低位</td>
+</tr>
+<tr>
+<td>BMI</td>
+<td>17.0 kg/m²</td>
+<td>WHO 标准体重过轻</td>
+</tr>
+<tr>
+<td>体脂率</td>
+<td>8.8%</td>
+<td>男性极低区间，必需脂肪边缘</td>
+</tr>
+<tr>
+<td>去脂体重</td>
+<td>约 50 kg</td>
+<td>同身高男性通常 55-65 kg</td>
+</tr>
+<tr>
+<td>静息心率</td>
+<td>56 bpm</td>
+<td>正常偏低，心血管效率良好</td>
+</tr>
+<tr>
+<td>最大心率</td>
+<td>192 bpm</td>
+<td>实测，心脏储备正常</td>
+</tr>
+<tr>
+<td>肺活量</td>
+<td>5000 mL</td>
+<td>同身高显著偏高</td>
+</tr>
+</tbody>
+</table>
+<p><strong>第一层含义：</strong></p>
+<p>你是一个极度轻量化的成年男性，身高在人群前列，体重在末列。身体总质量仅相当于一个身高 165-170 cm 普通男性的体重。脂肪储备极薄，心脏和肺部的底子良好但被极轻体重放大。</p>
+<hr>
+<h2 id="二身体比例结构">二、身体比例结构</h2>
+<h3 id="21-腿身比">2.1 腿身比</h3>
+<p>肚脐到脚底 = 27 + 47 + 45 + 8 = <strong>127 cm</strong></p>
+<p>腿身比 = 127 / 180 = <strong>0.706</strong></p>
+<ul>
+<li>理论黄金分割：0.618</li>
+<li>亚洲男性长腿阈值：大于 0.64</li>
+<li>你的位置：<strong>0.706，极长腿区间</strong></li>
+</ul>
+<p>你的肚脐位置显著高于标准分割点。骨盆和下肢在全身中占比极大，躯干相对短。</p>
+<h3 id="22-上下身比">2.2 上下身比</h3>
+<table>
+<thead>
+<tr>
+<th>定义</th>
+<th>长度</th>
+<th>占比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下肢长</td>
+<td>100 cm</td>
+<td>55.6%</td>
+</tr>
+<tr>
+<td>躯干长</td>
+<td>66 cm</td>
+<td>36.7%</td>
+</tr>
+<tr>
+<td>头颈长</td>
+<td>13.5 cm</td>
+<td>7.5%</td>
+</tr>
+</tbody>
+</table>
+<p>下肢绝对长度 100 cm，在 180 cm 身高中属于正常偏长。加上骨盆段后，视觉腿身比跃升至极长腿。</p>
+<h3 id="23-躯干内部比例">2.3 躯干内部比例</h3>
+<table>
+<thead>
+<tr>
+<th>部位</th>
+<th>长度</th>
+<th>比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>上躯干</td>
+<td>39 cm</td>
+<td>占躯干 59.1%</td>
+</tr>
+<tr>
+<td>下躯干</td>
+<td>27 cm</td>
+<td>占躯干 40.9%</td>
+</tr>
+<tr>
+<td>肩宽</td>
+<td>44 cm</td>
+<td>中等偏宽</td>
+</tr>
+<tr>
+<td>骨盆宽</td>
+<td>33 cm</td>
+<td>偏窄</td>
+</tr>
+<tr>
+<td>肩宽/骨盆宽</td>
+<td>1.33</td>
+<td>典型男性倒三角</td>
+</tr>
+</tbody>
+</table>
+<p>胸腔段明显长于腹腔段，骨盆在躯干中占比小。你虽然整体躯干短，但胸腔长度相对充裕，这与 5000 mL 肺活量自洽。</p>
+<h3 id="24-躯干围度结构">2.4 躯干围度结构</h3>
+<table>
+<thead>
+<tr>
+<th>部位</th>
+<th>围度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>胸围</td>
+<td>75 cm</td>
+<td>极度单薄</td>
+</tr>
+<tr>
+<td>腰围</td>
+<td>66 cm</td>
+<td>极细</td>
+</tr>
+<tr>
+<td>臀围</td>
+<td>88 cm</td>
+<td>相对宽</td>
+</tr>
+<tr>
+<td>胸臀比</td>
+<td>0.85</td>
+<td>臀显著大于胸</td>
+</tr>
+<tr>
+<td>腰臀比</td>
+<td>0.75</td>
+<td>男性罕见细腰</td>
+</tr>
+<tr>
+<td>腰胸比</td>
+<td>0.88</td>
+<td>胸仅略大于腰</td>
+</tr>
+</tbody>
+</table>
+<p><strong>躯干形状总结：</strong></p>
+<p>从背面或正面看，你的躯干呈宽肩急速收窄至细腰再展开的 X 形轮廓，但胸围绝对值太低，从侧面看极薄。客观上属于正面有倒三角骨架轮廓，但肌肉和软组织填充极低的类型。</p>
+<h3 id="25-上肢比例">2.5 上肢比例</h3>
+<table>
+<thead>
+<tr>
+<th>部位</th>
+<th>长度</th>
+<th>围度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>上臂</td>
+<td>35 cm</td>
+<td>24 cm</td>
+</tr>
+<tr>
+<td>前臂</td>
+<td>12.5 cm</td>
+<td>23 cm</td>
+</tr>
+<tr>
+<td>手</td>
+<td>17.5 cm</td>
+<td>-</td>
+</tr>
+<tr>
+<td>上肢全长</td>
+<td>65 cm</td>
+<td>-</td>
+</tr>
+<tr>
+<td>腕围</td>
+<td>-</td>
+<td>17 cm</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>上臂围/上臂长 = 0.686，肌肉横截面积极小</li>
+<li>前臂围/上臂围 = 0.958，前臂几乎与上臂等粗</li>
+<li>腕围 17 cm，小骨架</li>
+</ul>
+<p><strong>上肢结构总结：</strong></p>
+<p>长度比例正常，但围度绝对值极低。上臂与前臂几乎等粗，说明上臂屈肌肌腹极不发达，手臂呈直筒形态。手部长度正常，腕部极细。</p>
+<h3 id="26-下肢比例">2.6 下肢比例</h3>
+<table>
+<thead>
+<tr>
+<th>部位</th>
+<th>长度</th>
+<th>围度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大腿</td>
+<td>47 cm</td>
+<td>48 cm</td>
+</tr>
+<tr>
+<td>小腿</td>
+<td>45 cm</td>
+<td>35 cm</td>
+</tr>
+<tr>
+<td>足</td>
+<td>24.5 cm</td>
+<td>踝围 22.5 cm</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>大腿/小腿长 = 1.04，几乎等长，极其均衡</li>
+<li>大腿围/大腿长 = 1.02，偏瘦但正常低值</li>
+<li>小腿围/小腿长 = 0.78，正常偏低</li>
+<li>大腿围/小腿围 = 1.37，正常</li>
+</ul>
+<p><strong>下肢结构总结：</strong></p>
+<p>大腿与小腿长度几乎一比一，这在任何人群中都属于罕见均衡。围度比例正常，但绝对值偏低。下肢是全身最正常的部分，骨骼比例和围度分布无明显短板。</p>
+<hr>
+<h2 id="三骨架特征">三、骨架特征</h2>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>分类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>腕围</td>
+<td>17 cm</td>
+<td>小骨架</td>
+</tr>
+<tr>
+<td>踝围</td>
+<td>22.5 cm</td>
+<td>小骨架</td>
+</tr>
+<tr>
+<td>骨盆宽</td>
+<td>33 cm</td>
+<td>窄骨盆</td>
+</tr>
+<tr>
+<td>肩宽</td>
+<td>44 cm</td>
+<td>中等偏宽</td>
+</tr>
+</tbody>
+</table>
+<p><strong>骨架结论：</strong></p>
+<p>你属于小骨架、窄骨盆、中等偏宽肩的骨骼结构。55 kg 体重与这个轻量化骨架相容，不只是骨头上没肉，而是骨头本身就轻、关节本身就细。</p>
+<hr>
+<h2 id="四身体成分分布">四、身体成分分布</h2>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>质量</th>
+<th>特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>头颈</td>
+<td>3.94 kg</td>
+<td>正常</td>
+</tr>
+<tr>
+<td>躯干</td>
+<td>19.15 kg</td>
+<td>胸廓单薄，腹部极瘦</td>
+</tr>
+<tr>
+<td>上肢双侧</td>
+<td>约 5.5 kg</td>
+<td>极度亏欠</td>
+</tr>
+<tr>
+<td>下肢双侧</td>
+<td>约 20.5 kg</td>
+<td>相对正常</td>
+</tr>
+</tbody>
+</table>
+<p><strong>上肢/下肢质量比</strong> 约 0.27，正常男性通常 0.35-0.45。你的上肢质量绝对值极低。</p>
+<hr>
+<h2 id="五运动能力映射到结构">五、运动能力映射到结构</h2>
+<h3 id="51-爆发力你的最强维度">5.1 爆发力，你的最强维度</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>成绩</th>
+<th>单位体重功率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>垂直纵跳</td>
+<td>50 cm</td>
+<td>大于 45 W/kg</td>
+</tr>
+<tr>
+<td>立定跳远</td>
+<td>2.8 m</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结构支撑：</strong></p>
+<ul>
+<li>大腿与小腿等长，均衡的杠杆结构，伸膝和跖屈力矩传递高效</li>
+<li>极轻体重，起跳需克服的惯性极小</li>
+<li>躯干短加骨盆窄，起跳时躯干转动惯量小，能量损失少</li>
+<li>体脂极低，几乎无死重</li>
+</ul>
+<p>你不是靠绝对力量跳得高，而是靠极小的惯性负荷让中等力量产生极高加速度。</p>
+<h3 id="52-中距离速度耐力意外突出">5.2 中距离速度耐力，意外突出</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>成绩</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000m</td>
+<td>3分16秒</td>
+</tr>
+<tr>
+<td>400m</td>
+<td>约70秒</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结构支撑：</strong></p>
+<ul>
+<li>极轻体重，跑步每一步垂直做功极小</li>
+<li>小腿相对偏长，步幅潜力大</li>
+<li>极细腰，躯干转动惯量小，上肢摆动耗能低</li>
+<li>肺活量 5000 mL 加静息心率 56，有氧基础良好</li>
+</ul>
+<p>结构上，你是为减少每步能耗而优化的：轻、窄、腿长。</p>
+<h3 id="53-上肢结构决定的短板">5.3 上肢，结构决定的短板</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>成绩</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>引体向上</td>
+<td>16 次借力</td>
+</tr>
+<tr>
+<td>俯卧撑</td>
+<td>25 次</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结构限制：</strong></p>
+<ul>
+<li>上臂围 24 cm，前臂围 23 cm，肌肉横截面积极低</li>
+<li>上臂与前臂几乎等粗，肱二头肌和肱肌肌腹不发达</li>
+<li>腕围 17 cm，小骨架，肌腱附着点力矩臂短</li>
+</ul>
+<p>16 次借力引体在 55 kg 体重下更多体现相对力量，而非绝对上肢力量。</p>
+<h3 id="54-平衡极优">5.4 平衡，极优</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>成绩</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单脚闭眼站立</td>
+<td>数分钟</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结构支撑：</strong></p>
+<ul>
+<li>窄骨盆加长腿，站姿稳定需要良好的踝策略控制</li>
+<li>极轻体重，微小力矩即可纠正姿态偏移</li>
+<li>足长 24.5 cm，支撑面正常</li>
+</ul>
+<p>本体感觉和核心微调能力极强。这也解释了为何你能在跳跃中高效协调发力链。</p>
+<hr>
+<h2 id="六能量系统结构画像">六、能量系统结构画像</h2>
+<ul>
+<li>磷酸原系统，极优</li>
+<li>无氧乳酸系统，良好</li>
+<li>有氧氧化系统，良好</li>
+</ul>
+<p>你的极低体脂和轻体重，让磷酸原系统成为最突出能力。中距离表现证明糖酵解和有氧系统均有不错基础。</p>
+<hr>
+<h2 id="七整体结构分类">七、整体结构分类</h2>
+<p>按照人体测量学的体型分类法，你属于：</p>
+<p><strong>极端外胚层加轻量长杠杆型</strong></p>
+<table>
+<thead>
+<tr>
+<th>特征维度</th>
+<th>你的位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>骨架粗细</td>
+<td>极细</td>
+</tr>
+<tr>
+<td>肌肉量</td>
+<td>极低</td>
+</tr>
+<tr>
+<td>脂肪量</td>
+<td>极低</td>
+</tr>
+<tr>
+<td>四肢长度</td>
+<td>下肢极长，上肢正常</td>
+</tr>
+<tr>
+<td>躯干</td>
+<td>短躯干、宽肩、细腰、窄骨盆</td>
+</tr>
+<tr>
+<td>质量分布重心</td>
+<td>偏高</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="八一句话总结">八、一句话总结</h2>
+<p>你是一台基于小骨架、极低体脂、下肢极长且极其均衡的轻量化人体结构。爆发力是天赋上限，上肢是结构性短板，能量系统以磷酸原为核心驱动，中距离耐力意外突出。</p>
+<hr>
+<p>全画像基于实测数据生成。无AI猜测，无审美评价，仅作人体结构与功能的客观映射。</p>
+
+</body>
+</html>
