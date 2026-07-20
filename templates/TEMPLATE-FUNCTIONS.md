@@ -1325,7 +1325,7 @@ class DSU {
     return find(x) == find(y);
   }
   
-  bool merge(int x, int y, int w) {
+  bool merge(int x, int y) {
     int fx = find(x);
     int fy = find(y);
     if (fx == fy) {
@@ -2549,61 +2549,86 @@ assert(v1 == v2);       // 哈希相等，子串相等
 
 ## AC-auto
 ```cpp
-class AC_Auto {
- public: 
-  vector<array<int, 26>> ch; // Trie树
-  vector<int> cnt, fail;     // cnt:单词结尾标记, fail:失配指针
-  int idx = 0;               // 节点编号
+struct AC_auto {
+  vector<array<int, 26>> trie;
+  vector<int> fail, cnt, pass;
+  vector<int> q;
+  int tot;
 
- public: 
-  AC_Auto(int n) {
-    ch.resize(n);
-    cnt.resize(n);
-    fail.resize(n);
+  AC_auto(int n = 1) : tot(0) {
+    trie.assign(n + 1, {});
+    fail.assign(n + 1, 0);
+    cnt.assign(n + 1, 0);
+    pass.assign(n + 1, 0);
+    q.assign(n + 1, 0);
   }
 
-  // 1. 插入模式串
-  void insert(string &s) {
-    int p = 0;
-    for (char c : s) {
-      int &v = ch[p][c - 'a'];
-      if (!v) v = ++idx;
-      p = v;
+  void insert(const string &s) {
+    int u = 0;
+    for (char ch : s) {
+      int c = ch - 'a';
+      if (!trie[u][c]) {
+        trie[u][c] = ++ tot;
+        if (tot >= (int)trie.size()) {
+          trie.resize(tot * 2);
+          fail.resize(tot * 2);
+          cnt.resize(tot * 2);
+          pass.resize(tot * 2);
+          q.resize(tot * 2);
+        }
+      }
+      u = trie[u][c];
     }
-    cnt[p]++; 
+    cnt[u] ++;
   }
 
-  // 2. 构建fail指针 (BFS)
   void build() {
-    queue<int> q;
-    for (int i = 0; i < 26; i++)
-      if (ch[0][i]) q.push(ch[0][i]);
-  
-    while (q.size()) {
-      int u = q.front(); q.pop();
-      for (int i = 0; i < 26; i++) {
-        int &v = ch[u][i];
+    int p1 = 0, p2 = -1;
+    for (int c = 0; c < 26; c ++) {
+      int v = trie[0][c];
+      if (v) {
+        fail[v] = 0;
+        q[++ p2] = v;
+      }
+    }
+    while (p1 <= p2) {
+      int u = q[p1 ++];
+      for (int c = 0; c < 26; c ++) {
+        int &v = trie[u][c];
         if (v) {
-          fail[v] = ch[fail[u]][i]; // 核心: KMP思想的体现
-          q.push(v);
+          fail[v] = trie[fail[u]][c];
+          q[++ p2] = v;
         } else {
-          v = ch[fail[u]][i]; // 路径压缩(类似并查集)
+          v = trie[fail[u]][c];
         }
       }
     }
   }
 
-  // 3. 查询文本串
-  int query(string &s) {
-    int p = 0, res = 0;
-    for (char c : s) {
-      p = ch[p][c - 'a'];
-      for (int j = p; j && cnt[j] != -1; j = fail[j]) {
-        res += cnt[j];
-        cnt[j] = -1; // 防止重复计算（视题目要求而定）
-      }
+  int ask(const string &t) {
+    int u = 0, res = 0;
+
+    for (char ch : t) {
+      u = trie[u][ch - 'a'];
+      pass[u] ++;
+    }
+    for (int i = tot - 1; i >= 0; i --) {
+      int u = q[i];
+      pass[fail[u]] += pass[u];
+    }
+    for (int i = 1; i <= tot; i ++) {
+      if (cnt[i] and pass[i]) res ++;
     }
     return res;
+  }
+
+  void clear() {
+    memset(trie[0].data(), 0, 26 * sizeof(int));
+    for (int i = 1; i <= tot; i ++) {
+      fail[i] = cnt[i] = pass[i] = 0;
+      memset(trie[i].data(), 0, 26 * sizeof(int));
+    }
+    tot = 0;
   }
 };
 ```

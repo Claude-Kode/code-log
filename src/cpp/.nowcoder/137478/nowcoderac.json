@@ -1,0 +1,245 @@
+{
+    "contestId": 137478,
+    "problems": [
+        {
+            "info": {
+                "submitPersonCount": 122,
+                "tagId": 309036,
+                "index": "A",
+                "avgAcSubmitCount": 1.98,
+                "title": "CPCS",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 112,
+                "submitCount": 246,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319579,
+                "info": {}
+            },
+            "extra": {
+                "tagId": "4",
+                "questionId": "11725258",
+                "subTagId": "1",
+                "doneQuestionId": "137478",
+                "content": "## 题目描述\n\n在上一个宝箱的密码被成功破解后，小鸡大惊失色，连夜更换了密码的生成规则，并重新将宝箱锁好，信心十足地摆在了所有参赛者的面前。  \n\n这一次，解锁的线索更加复杂 —— 宝箱表面刻着两串小写字母 $a$ 和 $b$ ，并附言：“若你能算清 $a$ 的子序列中有多少与 $b$ 相同，我便甘拜下风！”  \n\n现在，宝箱的最终命运掌握在你手中！  \n\n特别地，如果一个字符串可以通过删除另一个字符串中的若干个字符（可能为零个），且不改变其余字符的顺序得到，那么这个字符串被称为另一个字符串的子序列。例如， $\\texttt{ace}$ 是 $\\texttt{abcde}$ 的子序列，但 $\\texttt{aec}$ 不是。  \n\n\n## 输入描述\n\n第一行包含一个字符串 $a$  $(1 \\le \\lvert a \\rvert \\le 10^5)$ 。  \n\n第二行包含一个字符串 $b$  $(1 \\le \\lvert b \\rvert \\le 10^3)$ 。  \n\n\n## 输出描述\n\n输出一个整数，表示与 $b$ 相同的 $a$ 的子序列数。  \n\n由于答案可能很大，请将结果对 $998244353$ 取模。  \n\n\n",
+                "examples": [
+                    {
+                        "input": "scmupc\nsc",
+                        "output": "2",
+                        "tips": "对于第一组样例， $a$ 中共有两个子序列与 $b$ 相同，用方框标记，分别为 $\\mathtt{\\fbox{sc}mupc}$ 和 $\\mathtt{\\fbox{s}cmup\\fbox{c}}$ 。  \n  \n"
+                    },
+                    {
+                        "input": "scppcsscpspccsp\nscpc",
+                        "output": "28",
+                        "tips": ""
+                    }
+                ]
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 115,
+                "tagId": 309037,
+                "index": "B",
+                "avgAcSubmitCount": 2.01,
+                "title": "花人局",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 109,
+                "submitCount": 231,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319581,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 16,
+                "tagId": 309038,
+                "index": "C",
+                "avgAcSubmitCount": 1.92,
+                "title": "有的兄弟，有的",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 13,
+                "submitCount": 35,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319583,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 71,
+                "tagId": 309040,
+                "index": "D",
+                "avgAcSubmitCount": 1.5,
+                "title": "可以来守护吗？？",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 70,
+                "submitCount": 111,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319586,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 23,
+                "tagId": 309046,
+                "index": "E",
+                "avgAcSubmitCount": 1.35,
+                "title": "花夕落",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 20,
+                "submitCount": 34,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319590,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 22,
+                "tagId": 309048,
+                "index": "F",
+                "avgAcSubmitCount": 2.47,
+                "title": "可以来拯救吗？？",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 19,
+                "submitCount": 51,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319594,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 170,
+                "tagId": 309080,
+                "index": "G",
+                "avgAcSubmitCount": 1.16,
+                "title": "马拉车车拉马 1",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 170,
+                "submitCount": 198,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319645,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 162,
+                "tagId": 309082,
+                "index": "H",
+                "avgAcSubmitCount": 3.03,
+                "title": "A + B = C",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 146,
+                "submitCount": 503,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319647,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 67,
+                "tagId": 309083,
+                "index": "I",
+                "avgAcSubmitCount": 1.53,
+                "title": "马拉车车拉马 2",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 62,
+                "submitCount": 108,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319649,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 105,
+                "tagId": 309084,
+                "index": "J",
+                "avgAcSubmitCount": 1.21,
+                "title": "方家兴和他的电子猫咪",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 96,
+                "submitCount": 131,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319652,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 59,
+                "tagId": 309085,
+                "index": "K",
+                "avgAcSubmitCount": 2.6,
+                "title": "翻牌",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 47,
+                "submitCount": 150,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319654,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 130,
+                "tagId": 309086,
+                "index": "L",
+                "avgAcSubmitCount": 1.38,
+                "title": "求同余",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 125,
+                "submitCount": 181,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319656,
+                "info": {}
+            }
+        },
+        {
+            "info": {
+                "submitPersonCount": 150,
+                "tagId": 309087,
+                "index": "M",
+                "avgAcSubmitCount": 1.35,
+                "title": "求质因数",
+                "totalScore": 0,
+                "score": 0,
+                "acceptedCount": 147,
+                "submitCount": 202,
+                "avgScore": 0,
+                "myStatus": "未通过",
+                "problemId": 319658,
+                "info": {}
+            }
+        }
+    ]
+}

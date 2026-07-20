@@ -15,7 +15,7 @@ using namespace std;
 void solve() {
   
 } 
-
+    
 int32_t main() {
   std::ios::sync_with_stdio(false);
   std::cin.tie(nullptr);
@@ -28,4 +28,4 @@ int32_t main() {
     solve();
 
   return 0;
-}
+} 
