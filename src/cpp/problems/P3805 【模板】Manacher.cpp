@@ -12,36 +12,37 @@ using namespace std;
 
 // REGISTER_REFLECT()
 
-vector<int> manacher(const string& s) {
-  int n = s.size();
-  // 预处理
+vector<int> manacher(string& s) {
   string t = "#";
-  for (char c : s) {
-    t += c;
-    t += '#';
+  for (char& ch : s) {
+    t += ch;
+    t += '#'; 
   }
 
-  int m = t.size();
-  vector<int> d(m);
-  for (int i = 0, c = 0, r = 0; i < m; i++) {
-    // 对称过来的初值
-    if (i <= r) d[i] = min(d[2 * c - i], r - i);
-    // 尝试向外扩展
-    while (i - d[i] - 1 >= 0 and i + d[i] + 1 < m and
-           t[i - d[i] - 1] == t[i + d[i] + 1])
-      d[i]++;
-    // 更新最右回文
+  int n = t.size();
+  vector<int> d(n);
+  int r = 0, c = 0;
+  for (int i = 0; i < n; i++) {
+    d[i] = (i < r) ? min(d[2 * c - i], r - i) : 1LL;
+    while (i - d[i] >= 0 and i + d[i] < n and t[i - d[i]] == t[i + d[i]]) 
+      d[i] ++;
     if (i + d[i] > r) {
-      r = i + d[i];
-      c = i;
-    }
+      c = i, r = i + d[i];
+    } 
   }
+
   return d;
 }
 
 void solve() {
   string s;
   cin >> s;
+  cout << ranges::max(manacher(s)) - 1 << "\n";
+  // 0-based 偶数索引位置为'#'
+  // 填充之后 长度 len 会 
+  // len => len * 2 + 1
+
+  
 }
 
 int32_t main() {
@@ -57,3 +58,4 @@ int32_t main() {
 
   return 0;
 }
+

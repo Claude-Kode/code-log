@@ -18,7 +18,7 @@ https://qoj.ac/contest/3799
 - [ ] G - 我会/一直/记得你
 - [ ] H - 矩形切割
 - [ ] I - 奶龙大战暴暴龙2 (prufer 序列)
-- [ ] L - 字符串匹配
+- [x] L - 字符串匹配
 
 ## 3. Codeforces Round 1109 (Div. 3)
 https://codeforces.com/contest/2244
@@ -52,3 +52,6 @@ https://ac.nowcoder.com/acm/contest/133876
 - [ ] G - Yura and Deadlines
 - [ ] H	- Rock-Paper-Scissors Master(博弈 + 期望计算)
 - [ ] L	- Substrings of Substrings
+
+图论题单: https://www.luogu.com.cn/training/14206#problems
+字符串题单: https://www.luogu.com.cn/training/203#problems
